@@ -2,6 +2,8 @@ import { LOGIN_FAIL,LOGIN_SUCCESS,LOGIN_STATUS,SIGNUP_FAIL,SIGNUP_STATUS,SIGNUP_
 import axios from "axios"
 
 export const createUser = (user)=> async(dispatch)=>{
+    const {username, fullname,email,password} = user
+
 
     try {
         dispatch({
@@ -13,12 +15,14 @@ export const createUser = (user)=> async(dispatch)=>{
             }
 
         }
-        const { data} = await axios.post("http://localhost:3001/register",user,config)
+        const { data} = await axios.post("http://localhost:3001/register",{username, fullname,email,password},config)
         console.log(data);
         
         dispatch({
             type: SIGNUP_SUCCESS,
-            payload: data
+            payload: {
+                message: "Signup was successful",
+                data: data}
         })
         
     } catch (error) {
@@ -26,7 +30,8 @@ export const createUser = (user)=> async(dispatch)=>{
 
         dispatch({
             type: SIGNUP_FAIL,
-            payload: error.message
+            payload: error.message,
+            message: "Error Occured when registering!"
         })
         
     }
@@ -34,6 +39,8 @@ export const createUser = (user)=> async(dispatch)=>{
 }
 
 export const loginUser = (user)=> async(dispatch)=>{
+
+    const { username,password} = user
     try {
         dispatch({
             type: LOGIN_STATUS
@@ -45,7 +52,7 @@ export const loginUser = (user)=> async(dispatch)=>{
 
         }
 
-        const {data} = await axios.post("http://localhost:3001/login",user,config)
+        const {data} = await axios.post("http://localhost:3001/login",{username,password},config)
         
         dispatch({
             type: LOGIN_SUCCESS,
@@ -57,7 +64,8 @@ export const loginUser = (user)=> async(dispatch)=>{
 
         dispatch({
             type: LOGIN_FAIL,
-            payload: error.message
+            payload: error.message,
+            message: "Error occured during log in!"
         })
         
     }
