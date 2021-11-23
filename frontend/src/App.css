@@ -40,3 +40,6 @@ input,button{
   margin-top: 50px;
 
 }
+.error-msg{
+  color: red;
+}
