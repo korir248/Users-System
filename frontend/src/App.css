@@ -1,0 +1,42 @@
+.App {
+  text-align: center;
+}
+p{
+  font-size: 30px;
+}
+.form{
+  display: flex;
+  align-items: center;
+}
+input,button{
+  width: 100%;
+  height: 50px;
+  margin-bottom: 15px;
+  font-size: medium;
+}
+.signup-form{
+  align-self: center;
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  padding-right: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  margin-top: 50px;
+
+}
+.btn-submit{
+  width: 100% !important;
+  background-color: green;
+  color: white;
+  font-size:medium;
+}
+.login-form{
+  align-self: center;
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  padding-right: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  margin-top: 50px;
+
+}
