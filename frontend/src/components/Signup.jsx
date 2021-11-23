@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch} from "react-redux"
+import { useDispatch, useSelector} from "react-redux"
 import { createUser } from "../redux/actions/userActions";
 
 
 const Signup = ()=>{
     const [formData, setFormData] = useState({});
+
+    const {loading,error} = useSelector(state => state.user)
 
     const handleChange = (e)=>{
         e.preventDefault()
@@ -15,8 +17,9 @@ const Signup = ()=>{
 
     const dispatch = useDispatch()
 
-    const registerUser = (data)=>{
-        dispatch(createUser(data))
+    const registerUser = (e)=>{
+        e.preventDefault()
+        dispatch(createUser(formData))
     }
 
 
@@ -24,14 +27,15 @@ const Signup = ()=>{
     return (
         <div className="form">
             <div className="signup-form">
-                <form>    
+                <form onSubmit={(e)=> registerUser(e)}>    
                     <p>Signup Form</p>                
                     <input name="fullname" placeholder="Enter Fullname" required onChange={handleChange}></input>
                     <input name="username" placeholder="Enter Username" required onChange={handleChange}></input>
                     <input name="email" placeholder="Enter Email" required onChange={handleChange}></input>
                     <input type="password" name="password"  placeholder="Enter Password" required onChange={handleChange}></input>
                     <input type="password" placeholder="Enter Confirm Password" required ></input>
-                    <button className="btn-submit" type="submit" value="Submit" onSubmit={()=> registerUser(formData)} >Submit</button>
+                    <button className="btn-submit" type="submit" value="Submit" > {loading ? "Signing up..." : "Submit"}</button>
+                    {error ? <h4 className="error-msg">{error}!!!</h4> : ""}
                     <i>Already have an account? <Link to="/login">Log in</Link></i><br/>
                     <i><Link to="/">Cancel</Link></i>
                 </form>
