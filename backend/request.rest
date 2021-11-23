@@ -3,3 +3,12 @@ GET http://localhost:3001/
 
 ####
 get http://localhost:3001/users
+
+###
+post http://localhost:3001/login
+Content-Type: application/json
+
+{
+    "username" : "werty",
+    "password": "123345"
+}

@@ -12,7 +12,7 @@ const config = {
     idleTimeoutMillis: 30000
   },
   options: {
-    encrypt: true,
+    // encrypt: true,
     trustServerCertificate: true 
   }
 }
@@ -27,7 +27,7 @@ mssql.connect(config).then(pool =>{
       console.log("Connected")
   }
 }).catch(e=>{
-    console.log(e.message)
+    console.log( e.message)
   })
 
 
