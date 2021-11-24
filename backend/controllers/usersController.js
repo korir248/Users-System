@@ -2,20 +2,20 @@ const mssql = require('mssql')
 const config = require('../config/db.config')
 
 
-const getUsers = async(req,res)=>{
+const getUsers = async()=>{
     try {
         let pool = await mssql.connect(config)
-        let sql = "select id,username,email from users where isDeleted = 0" 
+        let sql = "select id,username,email,password from users where isDeleted = 0" 
         let users = await pool.request().query(sql)
         const u = users.recordset.map(user=>{
             return {
                 user_id: user.id,
                 username: user.username.trim(),
-                email: user.email.trim()    
+                email: user.email.trim(),
+                password:user.password.trim()
              }
         })
-        return res.send(u)
-
+        return u
     } catch (error) {
         console.log(error.message);
         
@@ -23,41 +23,50 @@ const getUsers = async(req,res)=>{
     
 }
 
-const loginUser = async(username,password)=>{
+const loginUser = async(req,res)=>{
+
+    const { username,password} = req.body
     try{
         let pool = await mssql.connect(config)
-        let sql = "select username,password from users where isDeleted = 0 "
-        let user = await pool.request().query(sql)
-        console.log(user)
-
-        const userLogin = user.recordset.find(user=>{
-            user.username === username
+        let sql = `select username,password from users where isDeleted = 0 and username= '${username}'`
+        let users = pool.request().query(sql,(err,result)=>{
+            if(err){
+                console.log(err.message);
+                return err.message
+            }
+            if(result.recordset.length === 0){
+                console.log(`User ${username} does not exist`)
+                return res.status(401).send({message: `User ${username} does not exist`})
+            }else{
+                if(result.recordset[0].password !== password){
+                    console.log("Wrong password. Please try again!");
+                    return res.status(401).send("Wrong password. Please try again!")
+                }
+                console.log("Login was successful");
+                return res.status(201).send(result.recordset[0])
+            }
         })
-        if(!userLogin) "No such user was found"
-
-        if(!(userLogin.password === password)) "Wrong Password"
-
-
-        return user
+        return users
     }catch(err){
-        return err.message;
+        return res.send(err.message)
     }
 }
 
-const addUser = async(username,fullname, email,password)=>{
+const addUser = async(req,res)=>{
+    const {username,fullname, email,password} = req.body
 
     try {
         let pool = await mssql.connect(config)
         let sql2 = "select * from users where isDeleted = 0"
         const users = await pool.request().query(sql2)
 
-        const user = users.recordset.find(user=>{
+        const user = users.rdset.find(user=>{
             user.email === email || user.username === username
         })
 
-        if(!user) "Email or Username is already taken"
+        if(user || username) "Email or Username is already taken"
 
-        let sql = `insert into users(username,fullname,email,password) values(${username},${fullname},${email},${password})`
+        let sql = `insert into dbo.users([fullname],[username],[email],[password])values('${fullname}','${username}','${email}','${password}');`
 
         await pool.request().query(sql,(err,result)=>{
             if (err) {
