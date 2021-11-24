@@ -1,4 +1,4 @@
-import { LOGIN_FAIL,LOGIN_SUCCESS,LOGIN_STATUS,SIGNUP_FAIL,SIGNUP_STATUS,SIGNUP_SUCCESS} from '../types'
+import { LOGIN_FAIL,LOGIN_SUCCESS,LOGIN_REQUEST,SIGNUP_FAIL,SIGNUP_STATUS,SIGNUP_SUCCESS} from '../types'
 import axios from "axios"
 
 export const createUser = (user)=> async(dispatch)=>{
@@ -15,7 +15,7 @@ export const createUser = (user)=> async(dispatch)=>{
             }
 
         }
-        const { data} = await axios.post("http://localhost:3001/register",{username, fullname,email,password},config)
+        const data = await axios.post("http://localhost:3001/register",{username, fullname,email,password},config)
         console.log(data);
         
         dispatch({
@@ -43,7 +43,7 @@ export const loginUser = (user)=> async(dispatch)=>{
     const { username,password} = user
     try {
         dispatch({
-            type: LOGIN_STATUS
+            type: LOGIN_REQUEST
         })
         const config = {
             headers: {
@@ -53,6 +53,7 @@ export const loginUser = (user)=> async(dispatch)=>{
         }
 
         const {data} = await axios.post("http://localhost:3001/login",{username,password},config)
+        console.log(data)
         
         dispatch({
             type: LOGIN_SUCCESS,
