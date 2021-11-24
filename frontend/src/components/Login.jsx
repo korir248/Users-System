@@ -1,13 +1,14 @@
-import React,{ useState } from 'react'
-import { Link } from 'react-router-dom'
+import React,{ useState} from 'react'
+import { Link ,Navigate} from 'react-router-dom'
 import { useDispatch, useSelector} from 'react-redux'
 import { loginUser } from '../redux/actions/userActions'
 
 const Login = ()=> {
 
     const dispatch = useDispatch()
-    const { loading, error} = useSelector(state => state.user)
+    const {user, loading, error} = useSelector(state => state.user)
 
+    
     
     const [formData, setFormData] = useState({})
     
@@ -22,9 +23,14 @@ const Login = ()=> {
         console.log("Logging in:", formData);
         dispatch(loginUser(formData))
     }
+    console.log(user);
+    if (user.username) {
+        console.log(user);
+        return <Navigate to={"/"}/>
+    }
 
 
-    console.log(formData)
+    // console.log(formData)
     return (
         <div>
         <p>Login Page</p>
