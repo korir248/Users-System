@@ -4,6 +4,18 @@
 p{
   font-size: 30px;
 }
+.header{
+  background-color: green;
+  height: 60px;
+  position: absolute;
+  top: 0;
+  font-size: 25px;
+  width: 100%;
+  color: white;
+}
+.homepage{
+  margin-top: 100px;
+}
 .form{
   display: flex;
   align-items: center;

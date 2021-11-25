@@ -1,7 +1,8 @@
-import { LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, SIGNUP_FAIL, SIGNUP_STATUS, SIGNUP_SUCCESS } from "../types";
+import { LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, LOG_OUT, SIGNUP_FAIL, SIGNUP_STATUS, SIGNUP_SUCCESS } from "../types";
 
 const initialState = {
     user: {},
+    users: [],
     loading: false,
     error: "",
     message: ""
@@ -53,6 +54,11 @@ const userReducer = (state=initialState,{type,payload,message})=>{
                 error: payload,
                 message: message
 
+            }
+        case LOG_OUT:
+            return {
+                ...state,
+                user: {}
             }
         default:
             return state;
