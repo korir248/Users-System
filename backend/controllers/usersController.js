@@ -28,7 +28,7 @@ const loginUser = async(req,res)=>{
     const { username,password} = req.body
     try{
         let pool = await mssql.connect(config)
-        let sql = `select username,password from users where isDeleted = 0 and username= '${username}'`
+        let sql = `select username,password,isAdmin from users where isDeleted = 0 and username= '${username}'`
         let users = pool.request().query(sql,(err,result)=>{
             if(err){
                 console.log(err.message);
@@ -36,14 +36,16 @@ const loginUser = async(req,res)=>{
             }
             if(result.recordset.length === 0){
                 console.log(`User ${username} does not exist`)
-                return res.status(401).send({message: `User ${username} does not exist`})
+                return res.status(403).send({message: `User ${username} does not exist`})
             }else{
                 if(result.recordset[0].password !== password){
                     console.log("Wrong password. Please try again!");
-                    return res.status(401).send("Wrong password. Please try again!")
+                    return res.status(403).send({message: "Wrong password. Please try again!"})
                 }
                 console.log("Login was successful");
-                return res.status(201).send(result.recordset[0])
+                return res.status(202).send({
+                    message: "Login was successful",
+                    user: result.recordset[0]})
             }
         })
         return users
@@ -53,36 +55,33 @@ const loginUser = async(req,res)=>{
 }
 
 const addUser = async(req,res)=>{
-    const {username,fullname, email,password} = req.body
+    const {username,fullname, email,password,cpassword} = req.body
 
+    if(cpassword !== password) return res.status(401).send("Confirm that both passwords match!")
     try {
         let pool = await mssql.connect(config)
         let sql2 = "select * from users where isDeleted = 0"
         const users = await pool.request().query(sql2)
 
-        const user = users.rdset.find(user=>{
+        const user = users.recordset.find(user=>{
             user.email === email || user.username === username
         })
 
-        if(user || username) "Email or Username is already taken"
+        if(user.username || user.email) return res.status(401).send("Email or Username is already taken")
 
         let sql = `insert into dbo.users([fullname],[username],[email],[password])values('${fullname}','${username}','${email}','${password}');`
 
-        await pool.request().query(sql,(err,result)=>{
+        let result = pool.request().query(sql,(err,result)=>{
             if (err) {
+                console.log(err.message);
                 return err.message
                 
             }
+            console.log(result.recordset);
             return result
         })
-        // let result = await pool.request().query(sql,(err,result)=>{
-        //     if (err) {
-        //         return err.message
-                
-        //     }
-        //     return result
-        // })
-        // return result
+        
+        return result
     } catch (error) {
         console.log(error.message);
         
