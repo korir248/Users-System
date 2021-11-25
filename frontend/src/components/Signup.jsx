@@ -33,7 +33,7 @@ const Signup = ()=>{
                     <input name="username" placeholder="Enter Username" required onChange={handleChange}></input>
                     <input name="email" placeholder="Enter Email" required onChange={handleChange}></input>
                     <input type="password" name="password"  placeholder="Enter Password" required onChange={handleChange}></input>
-                    <input type="password" placeholder="Enter Confirm Password" required ></input>
+                    <input type="password" name="cpassword" placeholder="Enter Confirm Password" required onChange={handleChange}></input>
                     <button className="btn-submit" type="submit" value="Submit" > {loading ? "Signing up..." : "Submit"}</button>
                     {error ? <h4 className="error-msg">{error}!!!</h4> : ""}
                     <i>Already have an account? <Link to="/login">Log in</Link></i><br/>

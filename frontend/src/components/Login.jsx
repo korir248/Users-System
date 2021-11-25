@@ -23,9 +23,9 @@ const Login = ()=> {
         console.log("Logging in:", formData);
         dispatch(loginUser(formData))
     }
-    console.log(user);
+    // console.log(user);
     if (user.username) {
-        console.log(user);
+        if(user.isAdmin) return <Navigate to={"/admin"}/>
         return <Navigate to={"/"}/>
     }
 
@@ -54,4 +54,6 @@ const Login = ()=> {
 }
 
 export default Login
+
+
 
