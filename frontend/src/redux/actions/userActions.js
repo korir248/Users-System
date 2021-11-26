@@ -81,8 +81,7 @@ export const logOut = ()=>{
     }
 }
 
-export const showUsers = (user)=> async(dispatch)=>{
-    const {username} = user
+export const getUsers = ()=> async(dispatch)=>{
     try {
         dispatch({
             type: GET_USERS_REQUEST
@@ -95,7 +94,7 @@ export const showUsers = (user)=> async(dispatch)=>{
         }
 
 
-        const {data} = await axios.get("http://localhost:3001/users",{username},config)
+        const {data} = await axios.get("http://localhost:3001/users",config)
 
         console.log(data);
         dispatch({

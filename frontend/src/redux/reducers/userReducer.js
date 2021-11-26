@@ -1,4 +1,4 @@
-import { LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, LOG_OUT, SIGNUP_FAIL, SIGNUP_STATUS, SIGNUP_SUCCESS } from "../types";
+import { GET_USERS_FAILED, GET_USERS_REQUEST, GET_USERS_SUCCESS, LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, LOG_OUT, SIGNUP_FAIL, SIGNUP_STATUS, SIGNUP_SUCCESS } from "../types";
 
 const initialState = {
     user: {},
@@ -59,6 +59,23 @@ const userReducer = (state=initialState,{type,payload,message})=>{
             return {
                 ...state,
                 user: {}
+            }
+        case GET_USERS_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case GET_USERS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                users: [payload]
+            }
+        case GET_USERS_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: payload
             }
         default:
             return state;
