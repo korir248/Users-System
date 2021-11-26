@@ -16,6 +16,12 @@ p{
 .homepage{
   margin-top: 100px;
 }
+.e404{
+  margin-top: 100px;  
+}
+.admin-page{
+  margin-top: 100px;
+}
 .form{
   display: flex;
   align-items: center;
@@ -54,4 +60,5 @@ input,button{
 }
 .error-msg{
   color: red;
+  font-weight: bold;
 }
