@@ -74,11 +74,11 @@ const addUser = async(req,res)=>{
         let result = pool.request().query(sql,(err,result)=>{
             if (err) {
                 console.log(err.message);
-                return err.message
+                return res.send(err.message)
                 
             }
             console.log(result.recordset);
-            return result
+            return result.recordset
         })
         
         return result
@@ -88,4 +88,59 @@ const addUser = async(req,res)=>{
     }
 }
 
-module.exports = { getUsers,addUser,loginUser}
+const deleteUser = async(req,res)=>{
+    const { email} = req.body
+    try {
+
+        let pool = await mssql.connect(config)
+        let sql = `update users set isDeleted = 1 where email = '${email}'`
+
+        let result = pool.request().query(sql).then((err,result)=>{
+            if(err) return res.send(err.message)
+            res.status(202).send("Deleting...!")
+            return res.status(200).send({
+                message: "Deleted successfully!",
+                data: result.recordset
+            })
+
+        })
+
+        return result
+        
+    } catch (error) {
+        res.send({
+            error: error.message
+        })
+        
+    }
+
+}
+
+const getSpecificUser = (req,res)=>{
+    const { id } = req.params
+    try {
+        let pool= await mssql.connect(config)
+        let sql = `select id,username,email from users where id = ${id}`
+        let user= pool.request().query(sql).then((result,err)=>{
+            if(err) return res.status(401).send({
+                error: err.message
+            })
+            return res.status(202).send({
+                message: "Fetched successfully!! ",
+                user: result.recordset[0]
+            })
+
+        }).catch(err=>{
+            return res.send({
+                error: err.message,
+                message: "An error occured!"
+            })
+        })
+        return user
+    } catch (error) {
+        console.log(error)
+        
+    }
+}
+
+module.exports = { getUsers,addUser,loginUser, deleteUser,getSpecificUser}

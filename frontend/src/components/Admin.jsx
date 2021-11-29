@@ -23,6 +23,15 @@ const Admin = () => {
                 <button onClick={()=> gettingUsers()} >Show users!</button>
                 {users.length ? (
                     <div>
+                    {users.map(user=>{
+                        return (
+                            <div>
+                                <h4>{user.id}</h4>
+                                <p>{user.username}</p>
+                                <p>{user.email}</p>
+                            </div>
+                        )
+                    }) }
                     </div>
                 ) : (
                     <p>{error}</p>
