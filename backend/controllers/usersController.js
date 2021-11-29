@@ -95,10 +95,12 @@ const deleteUser = async(req,res)=>{
         let pool = await mssql.connect(config)
         let sql = `update users set isDeleted = 1 where email = '${email}'`
 
-        let result = pool.query(sql,(err,result)=>{
+        let result = pool.request().query(sql).then((err,result)=>{
             if(err) return res.send(err.message)
+            res.status(202).send("Deleting...!")
             return res.status(200).send({
-                message: "Deleted successfully!"
+                message: "Deleted successfully!",
+                data: result.recordset
             })
 
         })
@@ -114,4 +116,31 @@ const deleteUser = async(req,res)=>{
 
 }
 
-module.exports = { getUsers,addUser,loginUser, deleteUser}
+const getSpecificUser = (req,res)=>{
+    const { id } = req.params
+    try {
+        let pool= await mssql.connect(config)
+        let sql = `select id,username,email from users where id = ${id}`
+        let user= pool.request().query(sql).then((result,err)=>{
+            if(err) return res.status(401).send({
+                error: err.message
+            })
+            return res.status(202).send({
+                message: "Fetched successfully!! ",
+                user: result.recordset[0]
+            })
+
+        }).catch(err=>{
+            return res.send({
+                error: err.message,
+                message: "An error occured!"
+            })
+        })
+        return user
+    } catch (error) {
+        console.log(error)
+        
+    }
+}
+
+module.exports = { getUsers,addUser,loginUser, deleteUser,getSpecificUser}
