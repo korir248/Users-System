@@ -74,11 +74,11 @@ const addUser = async(req,res)=>{
         let result = pool.request().query(sql,(err,result)=>{
             if (err) {
                 console.log(err.message);
-                return err.message
+                return res.send(err.message)
                 
             }
             console.log(result.recordset);
-            return result
+            return result.recordset
         })
         
         return result
@@ -88,4 +88,30 @@ const addUser = async(req,res)=>{
     }
 }
 
-module.exports = { getUsers,addUser,loginUser}
+const deleteUser = async(req,res)=>{
+    const { email} = req.body
+    try {
+
+        let pool = await mssql.connect(config)
+        let sql = `update users set isDeleted = 1 where email = '${email}'`
+
+        let result = pool.query(sql,(err,result)=>{
+            if(err) return res.send(err.message)
+            return res.status(200).send({
+                message: "Deleted successfully!"
+            })
+
+        })
+
+        return result
+        
+    } catch (error) {
+        res.send({
+            error: error.message
+        })
+        
+    }
+
+}
+
+module.exports = { getUsers,addUser,loginUser, deleteUser}
