@@ -1,17 +1,20 @@
 .App {
   text-align: center;
+  font-family: cursive;
 }
 p{
   font-size: 30px;
 }
 .header{
+  display: flex;
+  justify-content: space-between;
   background-color: green;
   height: 60px;
   position: absolute;
   top: 0;
-  font-size: 25px;
   width: 100%;
   color: white;
+  padding-bottom: 30px;
 }
 .homepage{
   margin-top: 100px;
@@ -61,4 +64,12 @@ input,button{
 .error-msg{
   color: red;
   font-weight: bold;
+}
+.list-users{
+  margin: 3px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  font-size: 15px;
+}
+.header-txt{
+
 }

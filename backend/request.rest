@@ -9,6 +9,18 @@ post http://localhost:3001/login
 Content-Type: application/json
 
 {
-    "username" : "Randomhunter47",
-    "password": "eugene123"
+    "username" : "keaziah",
+    "password": "mati123"
+}
+
+###
+post http://localhost:3001/register
+Content-Type: application/json
+
+{
+    "username": "keaziah",
+    "fullname": "Keziah Mati",
+    "email": "mati@gmail.com",
+    "password": "mati123",
+    "cpassword": "mati123"
 }
