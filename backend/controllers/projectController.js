@@ -45,6 +45,30 @@ const getSpecificProject = async(req,res)=>{
             message: error.message
         })
     }
-
-    module.exports = { getAllProjects,getSpecificProject}
 }
+
+const deleteProject = async(req,res)=>{
+    const { id} = req.params
+    try {
+        let pool = await mssql.connect(config)
+        let sql = `delete from projects where id = ${id}`
+        pool.request().query(sql,(err,result)=>{
+            if(err) return res.status(401).send({
+                error: err.message,
+                message: "An Error Occured!"                
+            })
+            console.log(result.recordset);
+            return res.status(204).send(result.recordset)
+        })
+        
+    } catch (error) {
+        return res.status(500).send({
+            error: error.message,
+            message: "An Error Occured!"
+        })
+        
+    }
+}
+
+
+module.exports = { getAllProjects,getSpecificProject,deleteProject}

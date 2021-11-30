@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Navigate } from 'react-router'
 import { getUsers } from '../redux/actions/userActions'
 
 const Admin = () => {
@@ -14,6 +13,9 @@ const Admin = () => {
     const gettingUsers = ()=>{
         dispatch(getUsers())
     }
+    useEffect(()=>{
+
+    },[users])
 
     return (
         <div className="admin-page">
@@ -22,13 +24,14 @@ const Admin = () => {
                 <p> Welcome to the Admin Panel</p>
                 <button onClick={()=> gettingUsers()} >Show users!</button>
                 {users.length ? (
-                    <div>
+                    <div >
                     {users.map(user=>{
                         return (
-                            <div>
+                            <div className="list-users" key={user.id}>
                                 <h4>{user.id}</h4>
                                 <p>{user.username}</p>
                                 <p>{user.email}</p>
+                                <p>{user.password}</p>
                             </div>
                         )
                     }) }

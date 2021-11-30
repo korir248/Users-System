@@ -2,20 +2,32 @@ const mssql = require('mssql')
 const config = require('../config/db.config')
 
 
-const getUsers = async()=>{
+const getUsers = async(req,res)=>{
     try {
         let pool = await mssql.connect(config)
         let sql = "select id,username,email,password from users where isDeleted = 0" 
-        let users = await pool.request().query(sql)
-        const u = users.recordset.map(user=>{
-            return {
-                user_id: user.id,
-                username: user.username.trim(),
-                email: user.email.trim(),
-                password:user.password.trim()
-             }
+        let users = pool.request().query(sql,(err,result)=>{
+            if(err) return res.status(401).send({
+                error: err.message
+            })
+            return res.status(200).send(result.recordset)
+            
         })
-        return u
+
+        return users
+
+
+
+
+        // const u = users.recordset.map(user=>{
+        //     return {
+        //         user_id: user.id,
+        //         username: user.username.trim(),
+        //         email: user.email.trim(),
+        //         password:user.password.trim()
+        //      }
+        // })
+        // return res.send(u)
     } catch (error) {
         console.log(error.message);
         
@@ -57,33 +69,33 @@ const loginUser = async(req,res)=>{
 const addUser = async(req,res)=>{
     const {username,fullname, email,password,cpassword} = req.body
 
-    if(cpassword !== password) return res.status(401).send("Confirm that both passwords match!")
+    if(cpassword !== password) return res.status(401).send({
+        error: "Confirm that both passwords match!"
+    })
     try {
         let pool = await mssql.connect(config)
         let sql2 = "select * from users where isDeleted = 0"
-        const users = await pool.request().query(sql2)
+        const users = pool.request().query(sql2,(err,result)=>{
+            if(err) return res.status(401).send("An error occured")
+            let user = result.recordset.find(user=>{
+                user.email === email || user.username === username
+            })
+            if(user) return res.status(401).send("Email or Username is already taken")
 
-        const user = users.recordset.find(user=>{
-            user.email === email || user.username === username
-        })
-
-        if(user.username || user.email) return res.status(401).send("Email or Username is already taken")
-
-        let sql = `insert into dbo.users([fullname],[username],[email],[password])values('${fullname}','${username}','${email}','${password}');`
-
-        let result = pool.request().query(sql,(err,result)=>{
-            if (err) {
-                console.log(err.message);
-                return res.send(err.message)
-                
-            }
-            console.log(result.recordset);
-            return result.recordset
-        })
-        
-        return result
+            let sql = `insert into dbo.users([fullname],[username],[email],[password])values('${fullname}','${username}','${email}','${password}');`
+    
+            let resquery= pool.request().query(sql,(err,result)=>{
+                if (err) return res.status(401).send(err.message)
+                return res.status(200).send({
+                    message: "Signup was successful",
+                    data: result.recordset
+                })
+            })
+            return resquery
+        })        
+        return users
     } catch (error) {
-        console.log(error.message);
+        console.log("error: ",error.message);
         
     }
 }
@@ -116,7 +128,7 @@ const deleteUser = async(req,res)=>{
 
 }
 
-const getSpecificUser = (req,res)=>{
+const getSpecificUser = async(req,res)=>{
     const { id } = req.params
     try {
         let pool= await mssql.connect(config)

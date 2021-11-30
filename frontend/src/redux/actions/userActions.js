@@ -15,7 +15,7 @@ export const createUser = (user)=> async(dispatch)=>{
             }
 
         }
-        const data = await axios.post("http://localhost:3001/register",{username, fullname,email,password,cpassword},config)
+        const {data} = await axios.post("http://localhost:3001/register",{username, fullname,email,password,cpassword},config)
         console.log(data);
         
         dispatch({
