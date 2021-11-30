@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Link} from 'react-router-dom'
 
 const Header = () => {
 
@@ -9,7 +10,8 @@ const Header = () => {
     return (
         <div>
             <div className="header">
-                <p>User System</p>
+                <p className="header-txt">User System</p>
+                <p><Link to="/">Back to home</Link></p>
             </div>
         </div>
     )
