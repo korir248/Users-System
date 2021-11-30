@@ -69,7 +69,7 @@ const userReducer = (state=initialState,{type,payload,message})=>{
             return {
                 ...state,
                 loading: false,
-                users: [payload]
+                users: payload
             }
         case GET_USERS_FAILED:
             return {
