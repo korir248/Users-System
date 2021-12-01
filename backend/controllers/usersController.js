@@ -1,5 +1,6 @@
 const mssql = require('mssql')
 const config = require('../config/db.config')
+const generateToken = require('../helpers/token')
 
 
 const getUsers = async(req,res)=>{
@@ -15,19 +16,6 @@ const getUsers = async(req,res)=>{
         })
 
         return users
-
-
-
-
-        // const u = users.recordset.map(user=>{
-        //     return {
-        //         user_id: user.id,
-        //         username: user.username.trim(),
-        //         email: user.email.trim(),
-        //         password:user.password.trim()
-        //      }
-        // })
-        // return res.send(u)
     } catch (error) {
         console.log(error.message);
         
@@ -40,8 +28,8 @@ const loginUser = async(req,res)=>{
     const { username,password} = req.body
     try{
         let pool = await mssql.connect(config)
-        let sql = `select username,password,isAdmin from users where isDeleted = 0 and username= '${username}'`
-        let users = pool.request().query(sql,(err,result)=>{
+        // let sql = `select username,password,isAdmin from users where isDeleted = 0 and username= '${username}'`
+        let users = pool.request().input("username",`${username}`).execute('spLoginUser',(err,result)=>{
             if(err){
                 console.log(err.message);
                 return err.message
@@ -54,15 +42,19 @@ const loginUser = async(req,res)=>{
                     console.log("Wrong password. Please try again!");
                     return res.status(403).send({message: "Wrong password. Please try again!"})
                 }
+                let token = generateToken(username,password)
+                
                 console.log("Login was successful");
                 return res.status(202).send({
                     message: "Login was successful",
-                    user: result.recordset[0]})
+                    user: result.recordset[0],
+                    token: token
+                })
             }
         })
         return users
     }catch(err){
-        return res.send(err.message)
+        return res.status(401).send(err.message)
     }
 }
 
@@ -74,17 +66,16 @@ const addUser = async(req,res)=>{
     })
     try {
         let pool = await mssql.connect(config)
-        let sql2 = "select * from users where isDeleted = 0"
-        const users = pool.request().query(sql2,(err,result)=>{
+        // let sql2 = "select * from users where isDeleted = 0"
+        const users = pool.request().execute('spGetUsers',(err,result)=>{
             if(err) return res.status(401).send("An error occured")
             let user = result.recordset.find(user=>{
                 user.email === email || user.username === username
             })
             if(user) return res.status(401).send("Email or Username is already taken")
-
-            let sql = `insert into dbo.users([fullname],[username],[email],[password])values('${fullname}','${username}','${email}','${password}');`
+            // let sql = `insert into dbo.users([fullname],[username],[email],[password])values('${fullname}','${username}','${email}','${password}');`
     
-            let resquery= pool.request().query(sql,(err,result)=>{
+            let resquery= pool.request().input("fullname",`${fullname}`).input("username",`${username}`).input("email",`${email}`).input("password",`${password}`).execute('spAddUser',(err,result)=>{
                 if (err) return res.status(401).send(err.message)
                 return res.status(200).send({
                     message: "Signup was successful",
