@@ -5,9 +5,8 @@ const generateToken = require('../helpers/token')
 
 const getUsers = async(req,res)=>{
     try {
-        let pool = await mssql.connect(config)
-        let sql = "select id,username,email,password from users where isDeleted = 0" 
-        let users = pool.request().query(sql,(err,result)=>{
+        let pool = await mssql.connect(config) 
+        let users = pool.request().execute('spGetUsers',(err,result)=>{
             if(err) return res.status(401).send({
                 error: err.message
             })
@@ -18,6 +17,9 @@ const getUsers = async(req,res)=>{
         return users
     } catch (error) {
         console.log(error.message);
+        return res.status(500).send({
+            error: error.message
+        })
         
     }
     
@@ -28,7 +30,6 @@ const loginUser = async(req,res)=>{
     const { username,password} = req.body
     try{
         let pool = await mssql.connect(config)
-        // let sql = `select username,password,isAdmin from users where isDeleted = 0 and username= '${username}'`
         let users = pool.request().input("username",`${username}`).execute('spLoginUser',(err,result)=>{
             if(err){
                 console.log(err.message);
@@ -54,7 +55,9 @@ const loginUser = async(req,res)=>{
         })
         return users
     }catch(err){
-        return res.status(401).send(err.message)
+        return res.status(500).send({
+            error: error.message
+        })
     }
 }
 
@@ -66,15 +69,12 @@ const addUser = async(req,res)=>{
     })
     try {
         let pool = await mssql.connect(config)
-        // let sql2 = "select * from users where isDeleted = 0"
         const users = pool.request().execute('spGetUsers',(err,result)=>{
             if(err) return res.status(401).send("An error occured")
             let user = result.recordset.find(user=>{
                 user.email === email || user.username === username
             })
-            if(user) return res.status(401).send("Email or Username is already taken")
-            // let sql = `insert into dbo.users([fullname],[username],[email],[password])values('${fullname}','${username}','${email}','${password}');`
-    
+            if(user) return res.status(401).send("Email or Username is already taken")    
             let resquery= pool.request().input("fullname",`${fullname}`).input("username",`${username}`).input("email",`${email}`).input("password",`${password}`).execute('spAddUser',(err,result)=>{
                 if (err) return res.status(401).send(err.message)
                 return res.status(200).send({
@@ -87,6 +87,9 @@ const addUser = async(req,res)=>{
         return users
     } catch (error) {
         console.log("error: ",error.message);
+        return res.status(500).send({
+            error: error.message
+        })
         
     }
 }
@@ -96,10 +99,8 @@ const deleteUser = async(req,res)=>{
     try {
 
         let pool = await mssql.connect(config)
-        let sql = `update users set isDeleted = 1 where email = '${email}'`
-
-        let result = pool.request().query(sql).then((err,result)=>{
-            if(err) return res.send(err.message)
+        let result = pool.request().input("email",`${email}`).execute('spDeleteUser',(err,result)=>{
+            if(err) return res.status(500).send(err.message)
             res.status(202).send("Deleting...!")
             return res.status(200).send({
                 message: "Deleted successfully!",
@@ -111,7 +112,7 @@ const deleteUser = async(req,res)=>{
         return result
         
     } catch (error) {
-        res.send({
+        res.status(500).send({
             error: error.message
         })
         
@@ -134,7 +135,7 @@ const getSpecificUser = async(req,res)=>{
             })
 
         }).catch(err=>{
-            return res.send({
+            return res.status(500).send({
                 error: err.message,
                 message: "An error occured!"
             })
@@ -142,6 +143,9 @@ const getSpecificUser = async(req,res)=>{
         return user
     } catch (error) {
         console.log(error)
+        return res.status(500).send({
+            error: error.message
+        })
         
     }
 }
