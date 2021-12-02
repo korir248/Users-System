@@ -39,6 +39,7 @@ const getSpecificProject = async(req,res)=>{
                 project: result.recordset[0]
 
         })
+        return project
         
     })} catch (error) {
         res.status(500).send({
@@ -48,11 +49,11 @@ const getSpecificProject = async(req,res)=>{
 }
 
 const deleteProject = async(req,res)=>{
-    const { id} = req.params
+    const {id} = req.params
     try {
         let pool = await mssql.connect(config)
-        let sql = `delete from projects where id = ${id}`
-        pool.request().query(sql,(err,result)=>{
+        // let sql = `delete from projects where id = ${id}`
+        pool.request().input('id',id).execute('spDeleteProject',(err,result)=>{
             if(err) return res.status(401).send({
                 error: err.message,
                 message: "An Error Occured!"                
@@ -69,6 +70,29 @@ const deleteProject = async(req,res)=>{
         
     }
 }
+const createProject = async(req,res)=>{
+    const { project_name,date_created} = req.body
+    try {
+        let pool = await mssql.connect(config)    
+        let project = pool.request().input("project_name",`${project_name}`).input("date_created",`${date_created}`).execute('spCreateProject',(err,result)=>{
+            if(err) return res.status(401).send({
+                message: "An error ocurred!",
+                error: err.message
+            })
+
+            console.log(result.recordset);
+            return res.status(201).send({
+                message: "Project added successfully!",
+                project: result.recordset
+            })
+        })    
+    } catch (error) {
+        return res.status(500).send({
+            error: error.message,
+            message: "An Error Occured!"
+        })        
+    }
+}
 
 
-module.exports = { getAllProjects,getSpecificProject,deleteProject}
+module.exports = { getAllProjects,getSpecificProject,deleteProject,createProject}

@@ -7,6 +7,7 @@ get http://localhost:3001/users
 ###
 post http://localhost:3001/login
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtlYXppYWgiLCJwYXNzd29yZCI6Im1hdGkxMjMiLCJpYXQiOjE2MzgzNjQ5NjQsImV4cCI6MTYzODM2ODU2NH0.AN1nO5QJ3KbmPw4CfNNSBNDaOlaNJ6qtu_WcZfL9Cs4
 
 {
     "username" : "keaziah",
@@ -18,8 +19,7 @@ post http://localhost:3001/register
 Content-Type: application/json
 
 {
-    "username": "keaziah",
-    "fullname": "Keziah Mati",
+       "fullname": "Keziah Mati",
     "email": "mati@gmail.com",
     "password": "mati123",
     "cpassword": "mati123"
