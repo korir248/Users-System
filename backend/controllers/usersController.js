@@ -101,7 +101,6 @@ const deleteUser = async(req,res)=>{
         let pool = await mssql.connect(config)
         let result = pool.request().input("email",`${email}`).execute('spDeleteUser',(err,result)=>{
             if(err) return res.status(500).send(err.message)
-            res.status(202).send("Deleting...!")
             return res.status(200).send({
                 message: "Deleted successfully!",
                 data: result.recordset
@@ -124,8 +123,7 @@ const getSpecificUser = async(req,res)=>{
     const { id } = req.params
     try {
         let pool= await mssql.connect(config)
-        let sql = `select id,username,email from users where id = ${id}`
-        let user= pool.request().query(sql).then((result,err)=>{
+        let user= pool.request().input("id",`${id}`).execute('spGetSpecificUser',(err,result)=>{
             if(err) return res.status(401).send({
                 error: err.message
             })
@@ -134,11 +132,6 @@ const getSpecificUser = async(req,res)=>{
                 user: result.recordset[0]
             })
 
-        }).catch(err=>{
-            return res.status(500).send({
-                error: err.message,
-                message: "An error occured!"
-            })
         })
         return user
     } catch (error) {

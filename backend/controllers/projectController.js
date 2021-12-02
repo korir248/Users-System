@@ -4,17 +4,19 @@ const config = require('../config/db.config')
 const getAllProjects = async(req,res)=>{
     try {
         let pool = await mssql.connect(config)
-        let sql = "select id,project_name,date_created from projects"
+        let projects = await pool.request().execute('spGetProjects',(err,result)=>{
+            if(err) return res.status(500).send({ error: err.message})
 
-        let projects = await pool.request().query(sql)
-        const p = projects.recordset.map(project=>{
-            return {
-                project_id: project.id,
-                project_name: project.projectname.trim(),
-                date_created: project.date_created
-             }
+            const p = result.recordset.map(project=>{
+                return {
+                    project_id: project.id,
+                    project_name: project.projectname.trim(),
+                    date_created: project.date_created
+                 }
+            })
+            return res.status(200).send(p)
         })
-        return p
+        return projects
         
     } catch (error) {
         res.status(500).send({
@@ -25,12 +27,10 @@ const getAllProjects = async(req,res)=>{
 }
 
 const getSpecificProject = async(req,res)=>{
-    const {id} = req.params
+    const {email} = req.body
     try {
         let pool = await mssql.connect(config)
-        let sql = `select id,project_name, date_created from projects where id = ${id}`
-
-        let project = pool.request().query(sql,(err,result)=>{
+        let project = pool.request().input("email",`${email}`).execute('spGetSpecificProject',(err,result)=>{
             if(err) return res.status(401).send({
                 error: err.message
             })
@@ -39,9 +39,11 @@ const getSpecificProject = async(req,res)=>{
                 project: result.recordset[0]
 
         })
-        return project
         
-    })} catch (error) {
+    })
+    return project
+
+    } catch (error) {
         res.status(500).send({
             message: error.message
         })
@@ -49,11 +51,10 @@ const getSpecificProject = async(req,res)=>{
 }
 
 const deleteProject = async(req,res)=>{
-    const {id} = req.params
+    const {email} = req.body
     try {
         let pool = await mssql.connect(config)
-        // let sql = `delete from projects where id = ${id}`
-        pool.request().input('id',id).execute('spDeleteProject',(err,result)=>{
+        let result =  pool.request().input('id',`${email}`).execute('spDeleteProject',(err,result)=>{
             if(err) return res.status(401).send({
                 error: err.message,
                 message: "An Error Occured!"                
@@ -61,6 +62,7 @@ const deleteProject = async(req,res)=>{
             console.log(result.recordset);
             return res.status(204).send(result.recordset)
         })
+        return result
         
     } catch (error) {
         return res.status(500).send({
@@ -79,13 +81,13 @@ const createProject = async(req,res)=>{
                 message: "An error ocurred!",
                 error: err.message
             })
-
             console.log(result.recordset);
             return res.status(201).send({
                 message: "Project added successfully!",
                 project: result.recordset
             })
-        })    
+        }) 
+        return project  
     } catch (error) {
         return res.status(500).send({
             error: error.message,
