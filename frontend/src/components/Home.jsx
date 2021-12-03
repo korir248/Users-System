@@ -16,7 +16,7 @@ const Home = ()=> {
     return (
         <>
         <Header/>
-        <div className="homepage">
+        <div className="homepage admin">
         
         <p>Welcome Home { user ? user.username : "Home"}!</p>
         {user.username ? (
