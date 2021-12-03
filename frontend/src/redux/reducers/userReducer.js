@@ -43,7 +43,7 @@ const userReducer = (state=initialState,{type,payload,message})=>{
             return {
                 ...state,
                 loading: false,
-                message: message,
+                message: payload.message,
                 error: ""
 
             }

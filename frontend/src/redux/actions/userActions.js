@@ -9,6 +9,8 @@ export const createUser = (user)=> async(dispatch)=>{
         dispatch({
             type: SIGNUP_STATUS
         })
+
+        
         const config = {
             headers: {
                 'Content-type': 'application/json'
@@ -22,8 +24,8 @@ export const createUser = (user)=> async(dispatch)=>{
             type: SIGNUP_SUCCESS,
             payload: {
                 message: "Signup was successful",
-                data: data}
-        })
+                data: data
+            }})
         
     } catch (error) {
         console.log(error.message);
@@ -54,6 +56,7 @@ export const loginUser = (user)=> async(dispatch)=>{
 
         const {data} = await axios.post("http://localhost:3001/login",{username,password},config)
         console.log(data)
+        localStorage.setItem('token',data.token)
 
         setTimeout(() => {            
             dispatch({
@@ -86,9 +89,11 @@ export const getUsers = ()=> async(dispatch)=>{
         dispatch({
             type: GET_USERS_REQUEST
         })
+        let token = localStorage.getItem('token')
         const config = {
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': token
             }
 
         }
