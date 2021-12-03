@@ -24,6 +24,7 @@ p{
 }
 .admin-page{
   margin-top: 100px;
+  display: flex;
 }
 .form{
   display: flex;
@@ -70,6 +71,20 @@ input,button{
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   font-size: 15px;
 }
-.header-txt{
-
+.sidebar{
+  flex: 1;
+  background-color: rgba(0,0,0,0.2);
+  height: 80vh;
+  padding: 20px;
+  margin: 10px;
+  flex-direction: column;
 }
+.other{
+  flex: 4;
+}
+.admin{
+  flex: 4;
+}
+/* .users{
+  flex: 4;
+} */
