@@ -5,14 +5,14 @@ const { getUsers, loginUser, addUser, deleteUser } = require('../controllers/use
 const router =  express.Router()
 
 
-router.route("/users").get(getUsers)
+router.route("/users").get(auth,getUsers)
 router.route("/login").post(loginUser)
 router.route("/register").post(addUser)
 
 
 router.route("/admin/projects").get(auth,getAllProjects)
 router.route("/admin/projects").post(auth,createProject)
-router.route("/admin/users").delete(deleteUser)
+router.route("/admin/users").delete(auth,deleteUser)
 
 
 
