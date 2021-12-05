@@ -76,7 +76,10 @@ const addUser = async(req,res)=>{
             })
             if(user) return res.status(401).send("Email or Username is already taken")    
             let resquery= pool.request().input("fullname",`${fullname}`).input("username",`${username}`).input("email",`${email}`).input("password",`${password}`).execute('spAddUser',(err,result)=>{
-                if (err) return res.status(401).send(err.message)
+                if (err) return res.status(401).send({
+                    message: "An error occured!",
+                    error: err.message
+                })
                 return res.status(200).send({
                     message: "Signup was successful",
                     data: result.recordset
