@@ -78,10 +78,13 @@ export const loginUser = (user)=> async(dispatch)=>{
     }
 }
 
-export const logOut = ()=>{
-    return {
-        type: LOG_OUT
-    }
+export const logOut = ()=>async(dispatch)=>{
+    setTimeout(() => {
+        dispatch({
+            type: LOG_OUT
+        })
+        
+    }, 100);
 }
 
 export const getUsers = ()=> async(dispatch)=>{
