@@ -2,8 +2,6 @@ import React,{ } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux'
 import { logOut } from '../redux/actions/userActions'
-import Header from './Header'
-
 const Home = ()=> {   
 
     const {user} = useSelector(state => state.user)
@@ -14,11 +12,10 @@ const Home = ()=> {
         dispatch(logOut())
     }
     return (
-        <>
-        <Header/>
-        <div className="homepage admin">
+        <div className="admin">
+        <div className="homepage">
         
-        <p>Welcome Home { user ? user.username : "Home"}!</p>
+        <p>Welcome { user ? user.username : "Home"}!</p>
         {user.username ? (
             <div>
                 <Link to="/">
@@ -38,7 +35,7 @@ const Home = ()=> {
         )}
             
         </div>
-        </>   
+        </div>   
     )
 }
 

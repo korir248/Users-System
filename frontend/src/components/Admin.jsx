@@ -1,37 +1,48 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUsers } from '../redux/actions/userActions'
-import SideBar from './SideBar'
-import Users from './Users'
+import { getProjects } from '../redux/actions/projectActions'
 
 const Admin = () => {
     const {users,user,error} = useSelector(state => state.user)
+    const {projects} = useSelector(state => state.project)
     const dispatch = useDispatch()
-    
-    const gettingUsers = ()=>{
-        dispatch(getUsers())
-    }
-    // useEffect(()=>{
-    //     dispatch(getUsers())
+        
+    useEffect(() => {
+        dispatch(getUsers()) 
+        dispatch(getProjects())       
+    }, [users,projects])
 
-    // })
+    const completedProjects = projects.filter(project=> project.isCompleted === true)
+    
 
     return (
+        
         <div className="admin">
-
-        {/* {isAdmin? } */}
+        
             {user.isAdmin ? (
-                <>
-        <div className="other">
+            <>
+                <p > Welcome to the Admin Panel</p>
+            <div className="dashboard-admin">
                 
-                <p> Welcome to the Admin Panel</p>
-                {/* <Users/>  */}
-                
+                <div className="dashboard-item">
+                    Number of Users: {users.length}
+                </div>
+                <div className="dashboard-item">
+                    Number of Projects: {projects.length}
+                </div>
+                <div className="dashboard-item">
+                    Completed Projects:  {completedProjects.length}
+                </div>
 
             
             </div>
             </>
-            ) : <p className="error-msg">Error: Not Authorised</p>}
+            ) : <>
+            <p className="error-msg">Error: Not Authorised</p>
+            <i>{error}</i>
+            </>
+            }
         </div>
     )
 }

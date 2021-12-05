@@ -32,9 +32,9 @@ const Login = ()=> {
 
     // console.log(formData)
     return (
-        <div>
-        <p>Login Page</p>
+        <div className="login">
         <div className="login-form">
+        <p>Login Page</p>
         <form onSubmit={e=>loggingInUser(e)}>
             <label >Username</label>
             <input name="username" placeholder="Enter Username" onChange={handleChange} required/>
