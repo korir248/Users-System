@@ -4,14 +4,15 @@ const config = require('../config/db.config')
 const getAllProjects = async(req,res)=>{
     try {
         let pool = await mssql.connect(config)
-        let projects = await pool.request().execute('spGetProjects',(err,result)=>{
+        let projects = pool.request().execute('spGetProjects',(err,result)=>{
             if(err) return res.status(500).send({ error: err.message})
 
             const p = result.recordset.map(project=>{
                 return {
-                    project_id: project.id,
-                    project_name: project.projectname.trim(),
-                    date_created: project.date_created
+                    id: project.project_id,
+                    project_name: project.project_name.trim(),
+                    date_created: project.date_created,
+                    isCompleted: project.isCompleted
                  }
             })
             return res.status(200).send(p)

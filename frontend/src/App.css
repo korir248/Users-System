@@ -1,9 +1,10 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
   font-family: cursive;
 }
-p{
+.header>p{
   font-size: 30px;
+  margin-left: 20px;
 }
 .header{
   display: flex;
@@ -53,7 +54,7 @@ input,button{
   font-size:medium;
 }
 .login-form{
-  align-self: center;
+  background-color: white;
   width: 80%;
   margin: auto;
   padding: 20px;
@@ -66,25 +67,61 @@ input,button{
   color: red;
   font-weight: bold;
 }
-.list-users{
-  margin: 3px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  font-size: 15px;
-}
+
 .sidebar{
   flex: 1;
   background-color: rgba(0,0,0,0.2);
-  height: 80vh;
-  padding: 20px;
   margin: 10px;
+  height: calc(100vh - 15vh);
+  border-radius: 10px;
+  display: flex;
   flex-direction: column;
-}
-.other{
-  flex: 4;
+  justify-content: space-evenly;
 }
 .admin{
   flex: 4;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 20px;
+  background-color: rgba(0,0,0,0.2);
 }
-/* .users{
-  flex: 4;
-} */
+li{
+  list-style: none;
+  padding: 20px;
+  /* min-width: 100%; */
+  cursor: pointer;
+  border-radius: 10px;
+}
+li:active{
+  background-color: rgb(122, 117, 117);
+  color: black;
+}
+.single-user{
+  background-color: rgba(0,0,0,0.2);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
+.single-project{
+  background-color: rgba(0,0,0,0.2);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
+.dashboard-item{
+  background-color: white;
+  padding: 30px;
+  margin: 30px;
+  border-radius: 10px;
+  width: 30%;
+  height: 30%;
+}
+.dashboard-admin{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+.login{
+  margin-top: 20vh;
+  
+}

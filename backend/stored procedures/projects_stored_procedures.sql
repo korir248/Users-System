@@ -27,7 +27,7 @@ go
 create or alter proc spGetProjects
 as 
 begin 
-    select project_id,project_name,date_created from projects where isDeleted = 0
+    select project_id,project_name,date_created,isCompleted from projects where isDeleted = 0
 end 
 go
 

@@ -1,47 +1,29 @@
-import React,{ useEffect} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getUsers } from '../redux/actions/userActions'
-import SideBar from './SideBar'
+import React from 'react'
+import { useSelector } from 'react-redux'
+
 
 const Users = () => {
-    const {users,error,user} = useSelector(state => state.user)
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(getUsers())
-        
-    }, [])
+    const {users} = useSelector(state => state.user)
+
     return (
-        
         <div className="admin">
+        <p>Users</p>
+        {users.length ? 
+        <>
+        {users.map(user=> {
+            return (
+                <div key={user.id} className="single-user">
+                    <p>Email: {user.email}</p>
+                    <p>{user.username}</p>
+                    
+                </div>
 
-        {user.isAdmin ? (
-                <>
-        <div >
-                
-                <p> List of Users</p>
-                {/* <Users/>  */}
-                
-
-            {users.length ? (
-                    <div >
-                    {users.map(user=>{
-                        return (
-                            <div key={user.id}>
-                                <h4>{user.id}</h4>
-                                <p>{user.username}</p>
-                                <p>{user.email}</p>
-                                <p>{user.password}</p>
-                            </div>
-                        )
-                    }) }
-                    </div>
-                ) : (
-                    <p>{error}</p>
-                    )}
+            )
+        }
+        )}
+        </>
+        : <p>No users</p>}
             
-            </div>
-            </>
-            ) : <p className="error-msg">Error: Not Authorised</p>}
         </div>
     )
 }
