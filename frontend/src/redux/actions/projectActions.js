@@ -15,7 +15,7 @@ export const getProjects = ()=> async(dispatch)=>{
 
         }
     
-        const {data} = await axios.get("http://localhost:3001/admin/projects",config)
+        const {data} = await axios.get("http://localhost:3002/admin/projects",config)
         console.log(data);
         
         dispatch({

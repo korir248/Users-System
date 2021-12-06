@@ -1,5 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import momemt from 'moment'
+import moment from 'moment'
 
 const Projects = () => {
     const {projects,error} = useSelector(state => state.project)
@@ -13,7 +15,7 @@ const Projects = () => {
             {projects.map(project=> {
                 return (
                     <div key={project.id} className="single-project">
-                        <p>{project.date_created}</p>
+                        <p>{moment(project.date_created).format('dddd Do MMMM YYYY')}</p>
                         <p>{project.project_name}</p>
                         <p>{project.isCompleted}</p>                   
                     </div>

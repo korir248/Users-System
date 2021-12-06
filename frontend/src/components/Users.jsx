@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import Pagination from '@mui/material/Pagination'
 
 
 const Users = () => {
@@ -21,6 +22,7 @@ const Users = () => {
             )
         }
         )}
+        <Pagination />
         </>
         : <p>No users</p>}
             
