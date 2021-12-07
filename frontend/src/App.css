@@ -122,6 +122,21 @@ li:active{
   flex-direction: column;
 }
 .login{
-  margin-top: 20vh;
+  margin-top: 20vh;  
+}
+
+.sidebar li{
   
+  
+}
+.sidebar a{
+  color: inherit;
+  text-decoration: none;
+}
+.admin a{
+  text-decoration: none;
+  color: inherit;
+}
+.admin .error-msg{
+  text-align: center;
 }
