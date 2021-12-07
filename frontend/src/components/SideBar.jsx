@@ -16,7 +16,6 @@ const SideBar = () => {
         dispatch(getProjects())
     }
     const loggingOut = ()=>{
-        console.log(user);
         dispatch(logOut())      
     }
 
@@ -28,7 +27,7 @@ const SideBar = () => {
             <Link to={"/admin/projects"}><li onClick={()=> gettingProjects()}>Projects</li></Link>
             <Link to={"/admin/tasks"}><li>Tasks</li></Link>
             <li>Settings</li>
-            <li onClick={()=> loggingOut()}>Log Out</li>        
+            <Link to="/"><li onClick={()=> loggingOut()}>Log Out</li></Link>       
         
             
         </div>

@@ -45,7 +45,7 @@ const Login = ()=> {
             <button className="btn-submit" type="submit">{loading ? "Logging in..." : "Login"}</button>
             {error ? <h4 className="error-msg">{error}!!!</h4> : ""}
             <i>Don't have an account? <Link to="/register">Sign up now!</Link></i><br/>
-                    <i><Link to="/">Cancel</Link></i>
+                    <i><Link to="">Forgot password?</Link></i>
         </form>
         </div>
     </div>
