@@ -11,6 +11,7 @@ import SideBar from './components/SideBar';
 import Projects from './components/Projects';
 import { useSelector } from 'react-redux'
 import Tasks from './components/Tasks';
+import User from './components/mini components/User';
 
 
 const App = ()=> {
@@ -38,6 +39,7 @@ const App = ()=> {
       <Route path="/admin/users" element={<Users/>}/>
       <Route path="/admin/projects" element={<Projects/>}/>
       <Route path="/admin/tasks" element={<Tasks/>}/>
+      <Route path="/admim/tasks/:id" element={<User/>}/>
       <Route path="/register" element={<Signup/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path="/" element={<Home/>}/>
