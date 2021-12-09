@@ -1,7 +1,8 @@
 const mssql = require('mssql')
 const config = require('../config/db.config')
 const generateToken = require('../helpers/token')
-
+const validateUser = require('../helpers/validate')
+const bcrypt = require('bcrypt')
 
 const getUsers = async(req,res)=>{
     try {
@@ -66,6 +67,10 @@ const addUser = async(req,res)=>{
 
     if(cpassword !== password) return res.status(401).send({
         error: "Confirm that both passwords match!"
+    })
+    const {error} = validateUser(req.body)
+    if(error) return res.status(401).send({
+        error: error.details[0].message
     })
     try {
         let pool = await mssql.connect(config)
