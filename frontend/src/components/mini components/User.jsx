@@ -7,15 +7,20 @@ const User = () => {
     const {users} = useSelector(state => state.user)
     const {id}= useParams()
 
-    const user = users.filter (user=>user.id === parseInt(id))
+    const user = users.find(user=>user.id === parseInt(id))
+    console.log(user);
 
     return (
         <div className="admin">
-        {user.map(user=>(
+        {/* {user.map(user=>( */}
             <div>
-                {user.email}
+            <p>{user.fullname}</p>
+            <p>Email: {user.email}</p>
+            <p>{user.password}</p>          
+
+
             </div>
-        ))}
+        {/* ))} */}
         </div>
     )
 }

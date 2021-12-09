@@ -1,12 +1,13 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link,Navigate} from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { getProjects } from '../redux/actions/projectActions'
 import { getUsers, logOut } from '../redux/actions/userActions'
 
 
 const SideBar = () => {
     const {user} = useSelector(state => state.user)
+    console.log(user);
     const dispatch = useDispatch()
     
     const gettingUsers = ()=>{

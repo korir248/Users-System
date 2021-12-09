@@ -11,7 +11,7 @@ const Admin = () => {
     useEffect(() => {
         dispatch(getUsers()) 
         dispatch(getProjects())       
-    }, [users,projects])
+    })
 
     const completedProjects = projects.filter(project=> project.isCompleted === true)
     
