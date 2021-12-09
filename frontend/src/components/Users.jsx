@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import Pagination from '@mui/material/Pagination'
 import { Link } from 'react-router-dom'
 
 
@@ -12,20 +11,20 @@ const Users = () => {
         <p>Users</p>
         {users.length ? 
         <>
-        {users.map(user=> {
-            return (
-                <Link to={`/admin/users/${user.id}`}>
-                <div key={user.id} className="single-user">
-                    <p>Email: {user.email}</p>
-                    <p>{user.username}</p>
-                    
-                </div>
-                </Link>
-
-            )
-        }
+        <table>
+        <thead></thead>
+        <tbody>
+        {users.map(user=> (
+            <tr>
+            <Link to={`/admin/users/${user.id}`}>
+                <td>{user.fullname}</td>
+                <td>{user.email}</td>
+            </Link>
+            </tr>
+        )
         )}
-        <Pagination />
+        </tbody>
+        </table>
         </>
         : <p>No users</p>}
             
