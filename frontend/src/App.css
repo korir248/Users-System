@@ -69,6 +69,7 @@ input,button{
 }
 
 .sidebar{
+  text-align: center;
   flex: 1;
   background-color: rgba(0,0,0,0.2);
   margin: 10px;
@@ -125,10 +126,10 @@ li:active{
   margin-top: 20vh;  
 }
 
-.sidebar li{
+/* .sidebar li{
   
   
-}
+} */
 .sidebar a{
   color: inherit;
   text-decoration: none;
@@ -139,4 +140,12 @@ li:active{
 }
 .admin .error-msg{
   text-align: center;
+}
+td{
+  margin: 20px;
+  padding: 10px;
+
+}
+tr{
+  
 }
