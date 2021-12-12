@@ -1,7 +1,7 @@
 import React,{ useState} from 'react'
 import { Link ,Navigate} from 'react-router-dom'
 import { useDispatch, useSelector} from 'react-redux'
-import { loginUser } from '../redux/actions/userActions'
+import { loginUser } from '../../redux/actions/userActions'
 
 const Login = ()=> {
 

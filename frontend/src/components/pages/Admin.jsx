@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUsers } from '../redux/actions/userActions'
-import { getProjects } from '../redux/actions/projectActions'
+import { getUsers } from '../../redux/actions/userActions'
+import { getProjects } from '../../redux/actions/projectActions'
 
 const Admin = () => {
     const {users,user,error} = useSelector(state => state.user)

@@ -5,7 +5,7 @@ GO
 create  or alter  proc [dbo].[spGetTasks]
 as 
 begin 
-    select task_id,task_name,project_id,isDeleted,isCompleted,isAssigned from tasks 
+    select task_id,task_name,project_name,t.isDeleted,t.isCompleted,isAssigned  from tasks t inner join projects p on p.project_id = t.project_id
 end
 GO
 
