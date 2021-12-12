@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector} from "react-redux"
-import { createUser } from "../redux/actions/userActions";
+import { createUser } from "../../redux/actions/userActions";
 
 
 const Signup = ()=>{

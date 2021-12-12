@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link} from 'react-router-dom'
-import { getProjects } from '../redux/actions/projectActions'
-import { getUsers, logOut } from '../redux/actions/userActions'
+import { getProjects } from '../../redux/actions/projectActions'
+import { getUsers, logOut } from '../../redux/actions/userActions'
 
 
 const SideBar = () => {
