@@ -111,4 +111,29 @@ const completeTask = async(req,res)=>{
     }
 }
 
-module.exports = { getAllTasks,deleteTask,createTask,completeTask}
+const getSingleTask = async(req,res)=>{
+    const {id} = req.body
+    try {
+        let pool = await mssql.connect(config)
+        let task = pool.request().input("id",id).execute('spGetSingleTask',(err,result)=>{
+            if(err) return res.status(400).send('errpr:',err.message)
+
+            return res.status(200).send({
+                message: "Fetched successfully!",
+                task: result.recordset
+            })
+        })
+
+        return task
+        
+    } catch (error) {
+        res.status(500).send({
+            message: "An error occured!",
+            error: error.message
+        })
+        
+    }
+
+}
+
+module.exports = { getAllTasks,deleteTask,createTask,completeTask, getSingleTask}
