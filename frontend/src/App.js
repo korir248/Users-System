@@ -1,17 +1,17 @@
 import './App.css';
-import Signup from './components/Signup';
 import { BrowserRouter, Route, Routes} from "react-router-dom";
+import Signup from './components/main/Signup';
 import Home from './components/Home';
-import Login from "./components/Login"
-import Error from './components/Error';
-import Admin from './components/Admin';
-import Header from './components/Header';
-import Users from './components/Users';
-import SideBar from './components/SideBar';
-import Projects from './components/Projects';
+import Login from "./components/main/Login"
+import Error from './components/pages/Error';
+import Admin from './components/pages/Admin';
+import Header from './components/main/Header';
+import Users from './components/pages/Users';
+import SideBar from './components/mini components/SideBar';
+import Projects from './components/pages/Projects';
 import { useSelector } from 'react-redux'
-import Tasks from './components/Tasks';
-import User from './components/mini components/User';
+import Tasks from './components/pages/Tasks';
+import User from './components/pages/User';
 
 
 const App = ()=> {
