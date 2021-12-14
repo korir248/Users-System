@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUsers } from '../../redux/actions/userActions'
 import { getProjects } from '../../redux/actions/projectActions'
+import { getTasks } from '../../redux/actions/taskActions'
 
 const Admin = () => {
     const {users,user,error} = useSelector(state => state.user)
@@ -10,7 +11,8 @@ const Admin = () => {
         
     useEffect(() => {
         dispatch(getUsers()) 
-        dispatch(getProjects())       
+        dispatch(getProjects()) 
+        dispatch(getTasks())     
     })
 
     const completedProjects = projects.filter(project=> project.isCompleted === true)
