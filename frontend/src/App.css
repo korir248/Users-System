@@ -142,10 +142,21 @@ li:active{
   text-align: center;
 }
 td{
-  margin: 20px;
   padding: 10px;
+  width: 25%;
 
 }
+table{
+  width: 100%;
+}
 tr{
-  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+thead{
+  font-size: larger;
+  font-weight: bold;
 }
