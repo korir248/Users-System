@@ -10,12 +10,15 @@ const getAllTasks = async(req,res)=>{
                 message: "An error occured",
                 error: err.message
             })
+            // console.log(result.recordset)
 
             const t = result.recordset.map(task=>{
                 return {
                     id: task.task_id,
                     task_name: task.task_name.trim(),
-                    isAssigned: task.isAssigned
+                    project_name: task.project_name,
+                    isAssigned: task.isAssigned,
+                    isCompleted: task.isCompleted
                 }
             })
 
@@ -136,4 +139,28 @@ const getSingleTask = async(req,res)=>{
 
 }
 
-module.exports = { getAllTasks,deleteTask,createTask,completeTask, getSingleTask}
+const assignTask = async()=>{
+    const {task_id,user_id} = req.body
+    try {
+        let pool = await mssql.connect(config)
+        let task = pool.request().input("task_id",task_id).input("user_id",user_id).execute('spAssignTask',(err,result)=>{
+            if(err) return res.status(401).send({
+                message: "An error occured!",
+                error: err.message
+            })
+            return res.status(201).send({
+                message: "Task has been assigned!",
+                task: result.recordset
+            })
+        })
+        return task
+    } catch (error) {
+        res.status(500).send({
+            message: "An error occured!",
+            error: error.message
+        })
+        
+    }
+}
+
+module.exports = { getAllTasks,deleteTask,createTask,completeTask, getSingleTask, assignTask}
