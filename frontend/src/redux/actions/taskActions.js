@@ -46,7 +46,8 @@ export const deleteTask = (id)=> async(dispatch)=>{
             }
 
         }
-        const {data} = await axios.post("http://localhost:3002/admin/tasks",{id},config)
+        // console.log(token);
+        const {data} = await axios.delete("http://localhost:3002/admin/tasks",{id},config)
 
         dispatch({
             type: DELETE_TASK_SUCCESS,

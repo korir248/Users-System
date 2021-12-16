@@ -54,7 +54,7 @@ export const loginUser = (user)=> async(dispatch)=>{
 
         }
 
-        const {data} = await axios.post("http://localhost:3001/login",{username,password},config)
+        const {data} = await axios.post("http://localhost:3001/login",{username,password})
         console.log(data)
         localStorage.setItem('token',data.token)
 
