@@ -12,7 +12,12 @@ const Users = () => {
         {users.length ? 
         <>
         <table>
-        <thead></thead>
+        <thead>
+            <tr>
+                <td>Full Name</td>
+                <td>Email</td>
+            </tr>
+        </thead>
         <tbody>
         {users.map(user=> (
             <tr>

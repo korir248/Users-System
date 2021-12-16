@@ -12,12 +12,12 @@ import { MenuItem, Select } from '@mui/material';
 
 
 const CreateTask = () => {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 	const [open, setOpen] = useState(false);
     const {projects} = useSelector(state => state.project)
 
 
-    const [project_name, setstate] = useState("")
+    const [project_name, setProject] = useState("")
 
 
 	const handleClickOpen = () => {
@@ -25,12 +25,20 @@ const CreateTask = () => {
 	};
 
 	const handleClose = () => {
+		setProject("")
 		setOpen(false);
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();		 
 		setOpen(false);
+
 	};
+
+	const handleChange = (e)=>{
+		setProject(e.target.value)
+
+	}
+
     return (
         <div>
             <div>
@@ -38,23 +46,28 @@ const CreateTask = () => {
 				CREATE TASK
 			</Button>
 			<Dialog open={open} onClose={handleClose}>
-				<DialogTitle>Fill the project Details below</DialogTitle>
+				<DialogTitle>Create Task</DialogTitle>
 				<Box component='form' onSubmit={handleSubmit} noValidate>
 					<DialogContent>
-						<TextField
-							id='outlined-basic' label='Task Name' variant='outlined' fullWidth margin='normal' required name='taskName'
+						<label>Task</label>
+						<TextField  label="Task" variant='outlined' fullWidth margin='normal' required name='taskName'
 						/>
-                        <Select label="Project Name" fullWidth margin="normal" required value={project_name}>
-
+						<label>Project Name</label>
+                        <Select
+						label="Project Name"
+						value={project_name}
+						onChange={handleChange}
+						fullWidth placeholder="Project Name"
+						>
                         {projects.map(project=>(
 
-                            <MenuItem>{project.project_name}</MenuItem>
+                            <MenuItem key={project.id} value={project.project_name}>{project.project_name}</MenuItem>
                         ))}
                         </Select>
 					</DialogContent>
 					<DialogActions>
 						<Button onClick={handleClose}>Cancel</Button>
-						<Button type='submit'>Submit</Button>
+						<Button type='submit' onClick={handleSubmit} >Submit</Button>
 					</DialogActions>
 				</Box>
 			</Dialog>

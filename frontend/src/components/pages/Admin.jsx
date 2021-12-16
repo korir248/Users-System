@@ -10,10 +10,11 @@ const Admin = () => {
     const dispatch = useDispatch()
         
     useEffect(() => {
-        dispatch(getUsers()) 
-        dispatch(getProjects()) 
-        dispatch(getTasks())     
-    })
+        dispatch(getUsers())
+        dispatch(getProjects())
+        dispatch(getTasks())
+
+    },[])
 
     const completedProjects = projects.filter(project=> project.isCompleted === true)
     

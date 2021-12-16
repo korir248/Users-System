@@ -14,9 +14,9 @@ const Tasks = () => {
         console.log("deleting...");
         dispatch(deleteTask(id))
     }
-    useEffect(() => {
-        dispatch(getTasks())
-    }, [dispatch, tasks])
+    // useEffect(() => {
+    //     dispatch(getTasks())
+    // }, [dispatch, tasks])
 
     return (
         <div className="admin">
@@ -43,7 +43,7 @@ const Tasks = () => {
                 <td>{task.project_name}</td>
                 <td>{task.isAssigned.toString()}</td>
                 <td>{task.isCompleted ? "Completed" : "OnGoing"}</td>
-                <td><DeleteIcon onclick={()=> deletingTask(task.id)}/> </td>
+                <td><DeleteIcon className="delete-btn" onClick={()=> deletingTask(task.id)}/> </td>
                 <td><Checkbox /></td>
                 </tr>
         )
