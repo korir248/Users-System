@@ -52,8 +52,11 @@ const deleteTask = async(req,res)=>{
                 error: err.message
             })
 
-            console.log(result.recordset);
-            return res.status(204).send(result.recordset)
+            // console.log(result.recordset);
+            return res.status(200).send({
+                message: "Deleted successfully!",
+                data: result.recordset
+            })
         })
 
         return result
