@@ -160,3 +160,6 @@ thead{
   font-size: larger;
   font-weight: bold;
 }
+.delete-btn :hover{
+  cursor: pointer;
+}
