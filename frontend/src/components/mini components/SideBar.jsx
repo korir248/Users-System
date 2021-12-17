@@ -11,10 +11,10 @@ const SideBar = () => {
     const dispatch = useDispatch()
     
     const gettingUsers = ()=>{
-        dispatch(getUsers())
+        // dispatch(getUsers())
     }
     const gettingProjects = ()=>{
-        dispatch(getProjects())
+        // dispatch(getProjects())
     }
     const loggingOut = ()=>{
         dispatch(logOut())      
