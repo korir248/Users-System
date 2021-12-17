@@ -156,10 +156,14 @@ tr{
   width: 100%;
   align-items: center;
 }
+td{
+  flex: 1;
+}
 thead{
   font-size: larger;
   font-weight: bold;
 }
 .delete-btn :hover{
   cursor: pointer;
+  background-color: red;
 }
