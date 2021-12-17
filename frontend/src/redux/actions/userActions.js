@@ -54,9 +54,10 @@ export const loginUser = (user)=> async(dispatch)=>{
 
         }
 
-        const {data} = await axios.post("http://localhost:3001/login",{username,password})
+        const {data} = await axios.post("http://localhost:3001/login",{username,password},config)
         console.log(data)
         localStorage.setItem('token',data.token)
+        sessionStorage.setItem('user',JSON.stringify(data.user))
 
         setTimeout(() => {            
             dispatch({
@@ -79,6 +80,7 @@ export const loginUser = (user)=> async(dispatch)=>{
 }
 
 export const logOut = ()=>async(dispatch)=>{
+    sessionStorage.clear()
     setTimeout(() => {
         dispatch({
             type: LOG_OUT
