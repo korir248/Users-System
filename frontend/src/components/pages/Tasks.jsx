@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Checkbox from '@mui/material/Checkbox'
-import { deleteTask, getTasks } from '../../redux/actions/taskActions'
+import { deleteTask, getTasks} from '../../redux/actions/taskActions'
 import CreateTask from '../mini components/CreateTask'
 
 const Tasks = () => {
@@ -11,12 +11,11 @@ const Tasks = () => {
     const dispatch = useDispatch()
 
     const deletingTask = (id)=>{
-        console.log("deleting...");
         dispatch(deleteTask(id))
     }
     useEffect(() => {
         dispatch(getTasks())
-    }, [dispatch, tasks])
+    }, [dispatch])
 
     return (
         <div className="admin">
@@ -38,12 +37,12 @@ const Tasks = () => {
             </thead>
             <tbody>
             {tasks.map(task=> (
-                <tr>
+                <tr key={task.id}>
                 <td>{task.task_name}</td>
                 <td>{task.project_name}</td>
                 <td>{task.isAssigned.toString()}</td>
                 <td>{task.isCompleted ? "Completed" : "OnGoing"}</td>
-                <td><DeleteIcon onclick={()=> deletingTask(task.id)}/> </td>
+                <td><DeleteIcon className="delete-btn" onClick={()=> deletingTask(task.id)}/> </td>
                 <td><Checkbox /></td>
                 </tr>
         )

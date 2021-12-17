@@ -6,15 +6,15 @@ import { getUsers, logOut } from '../../redux/actions/userActions'
 
 
 const SideBar = () => {
-    const {user} = useSelector(state => state.user)
-    console.log(user);
+    // const {user} = useSelector(state => state.user)
+    // console.log(user);
     const dispatch = useDispatch()
     
     const gettingUsers = ()=>{
-        dispatch(getUsers())
+        // dispatch(getUsers())
     }
     const gettingProjects = ()=>{
-        dispatch(getProjects())
+        // dispatch(getProjects())
     }
     const loggingOut = ()=>{
         dispatch(logOut())      

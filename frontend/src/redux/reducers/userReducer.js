@@ -1,7 +1,7 @@
 import { GET_USERS_FAILED, GET_USERS_REQUEST, GET_USERS_SUCCESS, LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, LOG_OUT, SIGNUP_FAIL, SIGNUP_STATUS, SIGNUP_SUCCESS } from "../types";
 
 const initialState = {
-    user: {},
+    user: sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : {},
     users: [],
     loading: false,
     error: "",
