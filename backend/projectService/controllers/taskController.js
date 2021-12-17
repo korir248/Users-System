@@ -17,6 +17,7 @@ const getAllTasks = async(req,res)=>{
                     id: task.task_id,
                     task_name: task.task_name.trim(),
                     project_name: task.project_name,
+                    project_id: task.project_id,
                     isAssigned: task.isAssigned,
                     isCompleted: task.isCompleted
                 }
@@ -42,7 +43,8 @@ const getAllTasks = async(req,res)=>{
 }
 
 const deleteTask = async(req,res)=>{
-    const {id} = req.body
+    const {id} = req.headers
+    console.log(req.headers.id);
 
     try {
         let pool = await mssql.connect(config)
@@ -76,7 +78,7 @@ const createTask = async(req,res)=>{
     const {task_name,id} = req.body
     try {
         let pool = await mssql.connect(config)
-        let task = pool.request().input("name",task_name).input("id",id).execute('spCreateTask',(err,result)=>{
+        let task = pool.request().input("task_name",`${task_name}`).input("id",id).execute('spCreateTasks',(err,result)=>{
             if(err) return res.status(401).send({
                 error: err.message
             })
