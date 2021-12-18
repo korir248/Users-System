@@ -103,7 +103,7 @@ const addUser = async(req,res)=>{
 }
 
 const deleteUser = async(req,res)=>{
-    const { email} = req.body
+    const { email} = req.headers
     try {
 
         let pool = await mssql.connect(config)
