@@ -2,17 +2,15 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete'
-import Checkbox from '@mui/material/Checkbox'
-import { getUsers } from '../../redux/actions/userActions'
+import { deleteUser, getUsers } from '../../redux/actions/userActions'
 
 
 const Users = () => {
     const {users} = useSelector(state => state.user)
     const dispatch = useDispatch()
 
-    const deletingUser = (id)=>{
-        console.log("deleting...");
-        // dispatch(deleteTask(id))
+    const deletingUser = (email)=>{
+        dispatch(deleteUser(email))
     }
 
     useEffect(() => {
@@ -33,21 +31,22 @@ const Users = () => {
                     <td>Username</td>
                     <td>Email</td>
                     <td>IsSent</td>
+                    <td></td>
                 </tr>
 
             </thead>
             <tbody>
             {users.map(user=> (
-                <Link to={`/admin/users/${user.id}`}>
+                
                 <tr key={user.id}>
-                <td>{user.fullname}</td>
+                <td><Link to={`/admin/users/${user.id}`}>{user.fullname}</Link></td>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
                 <td>{user.isSent ? "Sent" : "OnGoing"}</td>
-                {/* <td><DeleteIcon className="delete-btn" onClick={()=> deletingUser(user.id)}/> </td> */}
+                <td><DeleteIcon className="delete-btn" onClick={()=> deletingUser(user.email)}/> </td>
                 {/* <td><Checkbox /></td> */}
                 </tr>
-                </Link>
+                
         )
         )}
         </tbody>

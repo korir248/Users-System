@@ -165,5 +165,11 @@ thead{
 }
 .delete-btn :hover{
   cursor: pointer;
-  background-color: red;
+}
+.dialog{
+  min-width: 100%;
+  border: 1px solid black ;
+}
+.title{
+  text-align: center;
 }

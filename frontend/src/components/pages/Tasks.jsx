@@ -4,6 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import Checkbox from '@mui/material/Checkbox'
 import { deleteTask, getTasks} from '../../redux/actions/taskActions'
 import CreateTask from '../mini components/CreateTask'
+import AssignTask from '../mini components/AssignTask'
 
 const Tasks = () => {
 
@@ -19,17 +20,18 @@ const Tasks = () => {
 
     return (
         <div className="admin">
-            <p>Tasks</p>
+            <p className="title">Tasks</p>
             <CreateTask/>
             {tasks.length ? 
             <>
             <table>
             <thead>
                 <tr>
-                    <td>Task Name</td>
+                    <td>Task</td>
                     <td>Project</td>
                     <td>isAssigned</td>
                     <td>Status</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -44,6 +46,7 @@ const Tasks = () => {
                 <td>{task.isCompleted ? "Completed" : "OnGoing"}</td>
                 <td><DeleteIcon className="delete-btn" onClick={()=> deletingTask(task.id)}/> </td>
                 <td><Checkbox /></td>
+                <td><AssignTask task_id={task.id} /></td>
                 </tr>
         )
         )}

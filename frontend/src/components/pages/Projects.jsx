@@ -47,15 +47,14 @@ const Projects = () => {
             </thead>
             {projects.map(project=>{
                 return (
-                <Link to={`/admin/projects/${project.id}`}>
-                <tr>
-                <td>{project.project_name}</td>
+                <tr key={project.id}>
+                <td><Link to={`/admin/projects/${project.id}`}></Link>{project.project_name}</td>
                 <td>{moment(project.date_created).format('dddd Do MMMM YYYY')}</td>
                 <td>{project.isCompleted ? "Completed" : "OnGoing"}</td>
                 <td><DeleteIcon className="delete-btn" onClick={()=> deletingProject(project.id)}/> </td>
                 <td><Checkbox/></td>
                 </tr>
-                </Link>
+                
                 )
             })}
             </>}

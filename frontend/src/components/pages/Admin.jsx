@@ -7,6 +7,7 @@ import { getTasks } from '../../redux/actions/taskActions'
 const Admin = () => {
     const {users,user,error} = useSelector(state => state.user)
     const {projects} = useSelector(state => state.project)
+    const {tasks} = useSelector(state => state.task)
     const dispatch = useDispatch()
         
     useEffect(() => {
@@ -14,10 +15,10 @@ const Admin = () => {
         dispatch(getProjects())
         dispatch(getTasks())
 
-    },[])
+    },[dispatch])
 
     const completedProjects = projects.filter(project=> project.isCompleted === true)
-    
+    const assignedTasks = tasks.filter(task=> task.isAssigned === true )
 
     return (
         
@@ -25,7 +26,7 @@ const Admin = () => {
         
             {user.isAdmin ? (
             <>
-                <p > Welcome to the Admin Panel</p>
+                <p className="title"> Welcome to the Admin Panel</p>
             <div className="dashboard-admin">
                 
                 <div className="dashboard-item">
@@ -36,6 +37,12 @@ const Admin = () => {
                 </div>
                 <div className="dashboard-item">
                     Completed Projects:  {completedProjects.length}
+                </div>
+                <div className="dashboard-item">
+                    Number of Tasks: {tasks.length}
+                </div>
+                <div className="dashboard-item">
+                    Assigned Tasks: {assignedTasks.length}
                 </div>
 
             
