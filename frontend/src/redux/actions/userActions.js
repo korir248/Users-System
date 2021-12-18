@@ -81,12 +81,9 @@ export const loginUser = (user)=> async(dispatch)=>{
 
 export const logOut = ()=>async(dispatch)=>{
     sessionStorage.clear()
-    setTimeout(() => {
         dispatch({
             type: LOG_OUT
         })
-        
-    }, 100);
 }
 
 export const getUsers = ()=> async(dispatch)=>{
@@ -120,5 +117,27 @@ export const getUsers = ()=> async(dispatch)=>{
             payload: error.message
         })
         
+    }
+}
+
+export const deleteUser = (email)=> async(dispatch)=>{
+    try {
+        let token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token,
+                email: email
+            }
+
+        }
+
+        const {data} = await axios.delete("http://localhost:3001/admin/users",config)
+        console.log(data);
+
+        dispatch(getUsers())
+        
+    } catch (error) {
+        console.log(error.message)        
     }
 }

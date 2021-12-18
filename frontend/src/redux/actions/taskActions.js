@@ -1,4 +1,4 @@
-import { CREATE_TASK_FAILED, CREATE_TASK_SUCCESS, DELETE_TASK_FAILED, DELETE_TASK_SUCCESS, GET_TASKS_FAILED, GET_TASKS_REQUEST, GET_TASKS_SUCCESS } from "../types"
+import { ASSIGN_TASK_FAILED, ASSIGN_TASK_SUCCESS, CREATE_TASK_FAILED, CREATE_TASK_SUCCESS, GET_TASKS_FAILED, GET_TASKS_REQUEST, GET_TASKS_SUCCESS } from "../types"
 import axios from 'axios'
 
 
@@ -52,19 +52,11 @@ export const deleteTask = (id)=> async(dispatch)=>{
         const {data} = await axios.delete("http://localhost:3002/admin/tasks",config)
         console.log(data);
 
-        dispatch({
-            type: DELETE_TASK_SUCCESS,
-            payload: data
-        })
-        dispatch(getTasks())
-        
+        dispatch(getTasks())        
 
         
     } catch (error) {
-        dispatch({
-            type: DELETE_TASK_FAILED,
-            payload: error.message
-        })
+        console.log(error.message)
         
     }
     
@@ -99,4 +91,34 @@ export const createTask = (task_name,id)=> async(dispatch)=>{
         })
         
     }
+}
+
+export const assignTask = (task_id,user_id)=> async(dispatch)=>{
+    try {
+        let token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token,
+            }
+
+        }
+
+        const {data} = await axios.post("http://localhost:3002/admin/tasks",{task_id,user_id},config)
+        console.log(data);
+
+        dispatch({
+            type: ASSIGN_TASK_SUCCESS,
+            payload: data
+        })
+        
+    } catch (error) {
+        dispatch({
+            type: ASSIGN_TASK_FAILED,
+            payload: error.message
+        })
+
+        
+    }
+
 }
