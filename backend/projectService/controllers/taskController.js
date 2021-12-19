@@ -19,7 +19,8 @@ const getAllTasks = async(req,res)=>{
                     project_name: task.project_name,
                     project_id: task.project_id,
                     isAssigned: task.isAssigned,
-                    isCompleted: task.isCompleted
+                    isCompleted: task.isCompleted,
+                    email: task.email
                 }
             })
 
@@ -144,12 +145,14 @@ const getSingleTask = async(req,res)=>{
 
 }
 
-const assignTask = async()=>{
+const assignTask = async(req,res)=>{
+    console.log(req.body);
     const {task_id,user_id} = req.body
+    console.log(task_id,user_id);
     try {
         let pool = await mssql.connect(config)
         let task = pool.request().input("task_id",task_id).input("user_id",user_id).execute('spAssignTask',(err,result)=>{
-            if(err) return res.status(401).send({
+            if(err) return res.status(403).send({
                 message: "An error occured!",
                 error: err.message
             })

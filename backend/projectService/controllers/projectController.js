@@ -53,10 +53,10 @@ const getSpecificProject = async(req,res)=>{
 }
 
 const deleteProject = async(req,res)=>{
-    const {email} = req.body
+    const {id} = req.headers
     try {
         let pool = await mssql.connect(config)
-        let result =  pool.request().input('id',`${email}`).execute('spDeleteProject',(err,result)=>{
+        let result =  pool.request().input('id',id).execute('spDeleteProject',(err,result)=>{
             if(err) return res.status(401).send({
                 error: err.message,
                 message: "An Error Occured!"                
@@ -97,6 +97,15 @@ const createProject = async(req,res)=>{
         })        
     }
 }
+const undo = async(req,res)=>{
+    try {
+        let pool  = await mssql.connect(config)
+        pool.request().execute('spUndo',(err,result)=>{
+            if(err) return res.status(500).send(err.message)
+        })
+    } catch (error) {
+        
+    }
+}
 
-
-module.exports = { getAllProjects,getSpecificProject,deleteProject,createProject}
+module.exports = { getAllProjects,getSpecificProject,deleteProject,createProject,undo}
