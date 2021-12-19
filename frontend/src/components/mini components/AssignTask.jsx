@@ -6,25 +6,25 @@ import { assignTask } from '../../redux/actions/taskActions'
 import { getUsers } from '../../redux/actions/userActions'
 
 
-const AssignTask = () => {
+const AssignTask = ({task_id}) => {
     const dispatch = useDispatch();
 	const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({})
     const {users} = useSelector(state => state.user)
-
+	
     const handleClickOpen = () => {
 		setOpen(true);
         dispatch(getUsers())
 	};
-
+	
+	
 	const handleClose = () => {
 		setOpen(false);
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();		 
 		setOpen(false);
-        console.log(formData.user_id);
-        dispatch(assignTask())
+        dispatch(assignTask(task_id,formData.user_id))
     }
     const handleChange = (e)=>{
         e.preventDefault()

@@ -20,7 +20,7 @@ const Users = () => {
 
     return (
         <div className="admin">
-        <p>Users</p>
+        <p className="title">Users</p>
         {users.length ? 
         <>
         <>

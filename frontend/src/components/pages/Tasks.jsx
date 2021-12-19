@@ -9,6 +9,7 @@ import AssignTask from '../mini components/AssignTask'
 const Tasks = () => {
 
     const { tasks} = useSelector(state => state.task)
+    console.log(tasks);
     const dispatch = useDispatch()
 
     const deletingTask = (id)=>{

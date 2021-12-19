@@ -1,13 +1,15 @@
 import React from 'react'
 import { useDispatch} from 'react-redux'
 import { Link} from 'react-router-dom'
+import { undo } from '../../redux/actions/projectActions'
 import { logOut } from '../../redux/actions/userActions'
 
 
 const SideBar = () => {
     const dispatch = useDispatch()
     const loggingOut = ()=>{
-        dispatch(logOut())      
+        dispatch(logOut()) 
+        dispatch(undo())    
     }
 
     return (
