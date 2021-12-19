@@ -1,7 +1,6 @@
 import { GET_PROJECTS_FAILED, GET_PROJECTS_REQUEST, GET_PROJECTS_SUCCESS } from "../types";
 
 const initialState = {
-    project: {},
     projects: [],
     loading: false,
     error: "",
