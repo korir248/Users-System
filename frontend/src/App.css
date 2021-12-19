@@ -84,7 +84,7 @@ input,button{
   border-radius: 10px;
   margin: 10px;
   padding: 20px;
-  background-color: rgba(0,0,0,0.2);
+  /* background-color: rgba(0,0,0,0.2); */
 }
 li{
   list-style: none;
@@ -98,7 +98,7 @@ li:active{
   color: black;
 }
 .single-user{
-  background-color: rgba(0,0,0,0.2);
+  /* background-color: rgba(0,0,0,0.2); */
   padding: 10px;
   margin: 10px;
   border-radius: 10px;
@@ -110,12 +110,12 @@ li:active{
   border-radius: 10px;
 }
 .dashboard-item{
-  background-color: white;
+  background-color: ivory;
   padding: 30px;
-  margin: 30px;
+  margin: 10px;
   border-radius: 10px;
   width: 30%;
-  height: 30%;
+  /* height: 30%; */
 }
 .dashboard-admin{
   display: flex;
@@ -171,5 +171,8 @@ thead{
   border: 1px solid black ;
 }
 .title{
-  text-align: center;
+  text-align: left;
+  font-weight: bolder;
+  font-size: larger;
+  margin-left: 10px;
 }
