@@ -146,9 +146,12 @@ const getSingleTask = async(req,res)=>{
 }
 
 const assignTask = async(req,res)=>{
-    console.log(req.body);
-    const {task_id,user_id} = req.body
+    // console.log(req.body);
+    const { task_id,user_id} = req.body
     console.log(task_id,user_id);
+
+    if(task_id === null || user_id === null) return res.status(403).send("Error!")
+     
     try {
         let pool = await mssql.connect(config)
         let task = pool.request().input("task_id",task_id).input("user_id",user_id).execute('spAssignTask',(err,result)=>{
@@ -171,4 +174,23 @@ const assignTask = async(req,res)=>{
     }
 }
 
-module.exports = { getAllTasks,deleteTask,createTask,completeTask, getSingleTask, assignTask}
+const unAssignTask = async(req,res)=>{
+
+    const { task_id } = req.body
+    try {
+        let pool = await mssql.connect(config)
+        let task = pool.request().input("task_id",task_id).execute('spUnAssignTask',(err,result)=>{
+            if(err) return res.status(401).send({
+                message: "An error occured!",
+                error: err.message
+            })
+            console.log(result.recordset);
+            return res.status(200).send("Task unassigned!")
+        })
+        return task
+    } catch (error) {
+        
+    }
+}
+
+module.exports = { getAllTasks,deleteTask,createTask,completeTask, getSingleTask, assignTask, unAssignTask}

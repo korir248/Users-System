@@ -3,7 +3,6 @@ import axios from 'axios'
 
 
 
-
 export const getTasks = ()=> async(dispatch)=>{
     try {
         dispatch({
@@ -19,7 +18,7 @@ export const getTasks = ()=> async(dispatch)=>{
         }
         
         const {data} = await axios.get("http://localhost:3002/admin/tasks",config)
-        console.log(data);
+        console.log(data.tasks);
         
         dispatch({
             type: GET_TASKS_SUCCESS,
@@ -105,7 +104,7 @@ export const assignTask = (task_id,user_id)=> async(dispatch)=>{
 
         }
 
-        const {data} = await axios.post("http://localhost:3002/admin/tasks",{task_id,user_id},config)
+        const {data} = await axios.put("http://localhost:3002/admin/tasks",{task_id,user_id},config)
         console.log(data);
 
         dispatch(getTasks())
@@ -115,4 +114,26 @@ export const assignTask = (task_id,user_id)=> async(dispatch)=>{
         
     }
 
+}
+
+export const unAssignTask = (task_id)=> async(dispatch)=>{
+    try {
+        let token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token,
+            }
+
+        }
+
+        const { data } = await axios.put("http://localhost:3002/admin/tasks/unassign",{task_id},config)
+        console.log(data);
+
+        dispatch(getTasks())
+        
+    } catch (error) {
+        console.log(error.message);
+        
+    }
 }

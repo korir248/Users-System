@@ -34,7 +34,7 @@ const loginUser = async(req,res)=>{
         let users = pool.request().input("username",`${username}`).execute('spLoginUser',(err,result)=>{
             if(err){
                 console.log(err.message);
-                return err.message
+                return res.status(401).send(err.message)
             }
             if(result.recordset.length === 0){
                 console.log(`User ${username} does not exist`)
