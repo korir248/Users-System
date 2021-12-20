@@ -6,6 +6,7 @@ import { deleteTask, getTasks } from '../../redux/actions/taskActions'
 import AssignTask from '../mini components/AssignTask'
 import { Button,} from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
+import UnAssignTask from '../mini components/UnAssignTask'
 // import { Link } from 'react-router-dom'
 // import moment from 'moment'
 
@@ -57,7 +58,7 @@ const Project = () => {
                 <td>{task.isCompleted ? "Completed" : "OnGoing"}</td>
                 <td><DeleteIcon className="delete-btn" onClick={()=> deletingTask(task.id)}/> </td>
                 {/* <td><Checkbox /></td> */}
-                <td><AssignTask task_id={task.id} /></td>
+                <td>{!task.isAssigned ? <AssignTask task_id={task.id} /> : <UnAssignTask task_id={task.id}/>}</td>
                 </tr>
         )
         )}

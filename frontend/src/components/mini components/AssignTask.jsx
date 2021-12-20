@@ -6,7 +6,7 @@ import { assignTask } from '../../redux/actions/taskActions'
 import { getUsers } from '../../redux/actions/userActions'
 
 
-const AssignTask = ({task_id}) => {
+const AssignTask = ({task_id,project_id}) => {
     const dispatch = useDispatch();
 	const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({})
@@ -31,6 +31,7 @@ const AssignTask = ({task_id}) => {
         setFormData({...formData,[e.target.name]: e.target.value})
         
     }
+	// const unAssigned = users.filter(user => user)
 
     return (
         <div>
