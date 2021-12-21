@@ -7,6 +7,7 @@ import { getUsers } from '../../redux/actions/userActions'
 
 
 const AssignTask = ({task_id,project_id}) => {
+	// console.log("project_id: ",project_id)
     const dispatch = useDispatch();
 	const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({})

@@ -2,10 +2,11 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Checkbox from '@mui/material/Checkbox'
-import { deleteTask, getTasks} from '../../redux/actions/taskActions'
+import { completeTask, deleteTask, getTasks} from '../../redux/actions/taskActions'
 import CreateTask from '../mini components/CreateTask'
 import AssignTask from '../mini components/AssignTask'
 import UnAssignTask from '../mini components/UnAssignTask'
+import { FormControlLabel } from '@mui/material'
 
 const Tasks = () => {
     // const [checked, setChecked] = useState(0)
@@ -19,8 +20,8 @@ const Tasks = () => {
         dispatch(getTasks())
     }, [dispatch])
 
-    const handleChange = ()=>{
-        console.log(1)
+    const handleChange = (e)=>{
+        if(e.target.checked) dispatch(completeTask(e.target.value))
 
     }
 
@@ -51,7 +52,7 @@ const Tasks = () => {
                 <td>{task.isAssigned.toString()}</td>
                 <td>{task.isCompleted ? "Completed" : "OnGoing"}</td>
                 <td><DeleteIcon className="delete-btn" onClick={()=> deletingTask(task.id)}/> </td>
-                <td><Checkbox onChange={handleChange}/></td>
+                <td>{!task.isCompleted ? <FormControlLabel control={ <Checkbox onChange={handleChange} value={task.id}/>} label="Complete"/>: ""}</td>
                 <td>{!task.isAssigned ? <AssignTask task_id={task.id} project_id={task.project_id}/> : <UnAssignTask task_id={task.id}/>}</td>
                 </tr>
         )

@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 import Tasks from './components/pages/Tasks';
 import User from './components/pages/User';
 import Project from './components/pages/Project';
+import AdminRoutes from './components/AdminRoutes';
 
 
 const App = ()=> {
@@ -29,26 +30,7 @@ const App = ()=> {
     </Routes>
     
     {user?.isAdmin ? 
-    <>
-    <div className="admin-page">
-
-    <SideBar/>
-    <Routes>      
-      {/* <Route path="/users" element={<Users/>} /> */}
-      <Route path="/admin" element={ <Admin/>} />
-      <Route path="*" element={<Error/>} />
-      <Route path="/admin/users" element={<Users/>}/>
-      <Route path="/admin/projects" element={<Projects/>}/>
-      <Route path="/admin/tasks" element={<Tasks/>}/>
-      <Route path="/admin/users/:id" element={<User/>}/>
-      <Route path="/admin/projects/:id" element={<Project/>}/>
-      <Route path="/register" element={<Signup/>}/>
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/" element={<Home/>}/>
-      
-    </Routes>
-    </div>
-    </>
+      <AdminRoutes/>
     : 
     <>
     <Routes>
