@@ -1,7 +1,7 @@
 const express = require('express')
 const auth = require('../controllers/authController')
 const { getAllProjects, getSpecificProject,createProject, deleteProject, undo } = require('../controllers/projectController')
-const { getAllTasks, deleteTask, createTask, completeTask, getSingleTask, assignTask, unAssignTask} = require('../controllers/taskController')
+const { getAllTasks, deleteTask, createTask, completeTask, getSingleTask, assignTask, unAssignTask, submitTask} = require('../controllers/taskController')
 const router =  express.Router()
 
 // Project routes
@@ -19,6 +19,7 @@ router.route("/admin/tasks").post(auth,completeTask)
 // router.route("/admin/tasks/:id").get(auth,getSingleTask)
 router.route("/admin/tasks").put(auth,assignTask)
 router.route("/admin/tasks/unassign").put(auth,unAssignTask)
+router.route("/tasks/submit").put(auth,submitTask)
 
 
 module.exports = router

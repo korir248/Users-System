@@ -20,6 +20,7 @@ const getAllTasks = async(req,res)=>{
                     project_id: task.project_id,
                     isAssigned: task.isAssigned,
                     isCompleted: task.isCompleted,
+                    isSubmitted: task.isSubmitted,
                     email: task.email
                 }
             })
@@ -184,13 +185,40 @@ const unAssignTask = async(req,res)=>{
                 message: "An error occured!",
                 error: err.message
             })
-            console.log(result.recordset);
+
+            console.log(`Task ${task_id} unassigned`);
             return res.status(200).send("Task unassigned!")
         })
         return task
     } catch (error) {
+        return res.status(500).send({
+            message: "An eror occured!",
+            error: error.message
+        })
         
     }
 }
 
-module.exports = { getAllTasks,deleteTask,createTask,completeTask, getSingleTask, assignTask, unAssignTask}
+const submitTask = async(req,res)=>{
+    const { task_id } = req.body
+    try {
+        let pool = await mssql.connect(config)
+        let task = pool.request().input("task_id",task_id).execute('spSubmitTask',(err)=>{
+            if(err) return res.status(401).send({
+                message: "An eror occured!",
+                error: error.message
+            })
+            return res.status(200).send("Task submitted!")
+        })
+        return task
+    } catch (error) {
+        return res.status(500).send({
+            message: "An eror occured!",
+            error: error.message
+        })
+        
+    }
+
+}
+
+module.exports = { getAllTasks,deleteTask,createTask,completeTask, getSingleTask, assignTask, unAssignTask,submitTask}
