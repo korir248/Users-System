@@ -7,6 +7,7 @@ import CreateTask from '../mini components/CreateTask'
 import AssignTask from '../mini components/AssignTask'
 import UnAssignTask from '../mini components/UnAssignTask'
 import { FormControlLabel } from '@mui/material'
+import { red } from '@mui/material/colors'
 
 const Tasks = () => {
     // const [checked, setChecked] = useState(0)
@@ -15,6 +16,7 @@ const Tasks = () => {
 
     const deletingTask = (id)=>{
         dispatch(deleteTask(id))
+        
     }
     useEffect(() => {
         dispatch(getTasks())
@@ -28,12 +30,13 @@ const Tasks = () => {
     return (
         <div className="admin">
             <p className="title">Tasks</p>
-            <CreateTask/>
+            <div st><CreateTask/></div>
             {tasks.length ? 
             <>
             <table>
             <thead>
                 <tr>
+                    <td>#</td>
                     <td>Task</td>
                     <td>Project</td>
                     <td>isAssigned</td>
@@ -45,14 +48,16 @@ const Tasks = () => {
 
             </thead>
             <tbody>
-            {tasks.map(task=> (
+            {tasks.map((task,index)=> (
                 <tr key={task.id}>
+                <td>{index +1}</td>
                 <td>{task.task_name}</td>
                 <td>{task.project_name}</td>
                 <td>{task.isAssigned.toString()}</td>
                 <td>{task.isCompleted ? "Completed" : "OnGoing"}</td>
-                <td><DeleteIcon className="delete-btn" onClick={()=> deletingTask(task.id)}/> </td>
-                <td>{!task.isCompleted ? <FormControlLabel control={ <Checkbox onChange={handleChange} value={task.id}/>} label="Complete"/>: ""}</td>
+                <td>{!task.isAssigned ? <DeleteIcon sx={{ color: red[500] }} className="delete-btn" onClick={()=> deletingTask(task.id)}/> : 
+                    <DeleteIcon sx={{ color: red[500] }} disabled/> }</td>
+                <td>{!task.isCompleted ? <FormControlLabel control={ <Checkbox onChange={handleChange} value={task.id}/>}color='success' label="Complete"/>: "Complete"}</td>
                 <td>{!task.isAssigned ? <AssignTask task_id={task.id} project_id={task.project_id}/> : <UnAssignTask task_id={task.id}/>}</td>
                 </tr>
         )
