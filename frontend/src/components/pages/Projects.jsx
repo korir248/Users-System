@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete'
 // import { Checkbox } from '@mui/material'
 import { deleteProject, getProjects } from '../../redux/actions/projectActions'
-import { Button } from '@mui/material'
+import { Button, Checkbox } from '@mui/material'
 import CreateProject from '../mini components/CreateProject'
 import { red } from '@mui/material/colors'
 
@@ -54,8 +54,10 @@ const Projects = () => {
                 <td>{project.project_name}</td>
                 <td>{moment(project.date_created).format('dddd Do MMMM YYYY')}</td>
                 <td>{project.isCompleted ? "Completed" : "OnGoing"}</td>
-                <td><DeleteIcon sx={{ color: red[500] }} className="delete-btn" onClick={()=> deletingProject(project.id)}/> </td>
-                {/* <td><Checkbox/></td> */}
+                {/* <td><DeleteIcon sx={{ color: red[500] }} className="delete-btn" onClick={()=> deletingProject(project.id)}/> </td> */}
+                <td>{project.isCompleted ? <DeleteIcon sx={{ color: red[500] }} className="delete-btn" onClick={()=> deletingProject(project.id)}/> : 
+                    <DeleteIcon sx={{ color: red[500] }} disabled/> }</td>
+                <td><Checkbox/></td>
                 <td><Link to={`/admin/projects/${project.id}`}><Button variant='contained' size='small'>VIEW TASKS</Button></Link></td>
                 </tr>
                 

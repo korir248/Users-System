@@ -51,7 +51,7 @@ const CreateTask = () => {
     return (
         <div>
             <div>
-			<Button variant='contained'  onClick={handleClickOpen}>
+			<Button variant='contained'  sx={{backgroundColor: 'green' ,color: 'white'}} onClick={handleClickOpen}>
 				CREATE TASK
 			</Button>
 			<Dialog open={open} onClose={handleClose}>

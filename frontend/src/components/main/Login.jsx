@@ -1,4 +1,4 @@
-import React,{ useEffect, useState} from 'react'
+import React,{ useState} from 'react'
 import { Link ,Navigate} from 'react-router-dom'
 import { useDispatch, useSelector} from 'react-redux'
 import { loginUser } from '../../redux/actions/userActions'
@@ -8,7 +8,7 @@ import moment from 'moment'
 const Login = ()=> {
 
     const dispatch = useDispatch()
-    const {user, loading, error,message} = useSelector(state => state.user)
+    const {user, loading} = useSelector(state => state.user)
     
     
     const [formData, setFormData] = useState({})
@@ -25,17 +25,9 @@ const Login = ()=> {
         dispatch(loginUser(formData))
         console.log(moment().format());
     }
-    const notify = () =>  {
-        // return toast.success("Login was successful!");
-    }
-    
-    // useEffect(() => {
-    //     if(user) return toast.success("Login was successful!");
-        
-    // }, [user])
 
     if (user.username) {
-        notify()
+        
         if(user.isAdmin) return (
         <Navigate to={"/admin"}/>
         )
@@ -60,7 +52,8 @@ const Login = ()=> {
             <button className="btn-submit" type="submit">{loading ? "Logging in..." : "Login"}</button>
             {/* {error ? <h4 className="error-msg">{error}!!!</h4> : ""} */}
             <i>Don't have an account? <Link to="/register">Sign up now!</Link></i><br/>
-                    <i><Link to="">Forgot password?</Link></i>
+            <i><Link to="/">Cancel</Link></i>
+                    
         </form>
         </div>
     </div>

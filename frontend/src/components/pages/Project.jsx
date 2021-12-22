@@ -7,6 +7,7 @@ import AssignTask from '../mini components/AssignTask'
 import { Button,} from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import UnAssignTask from '../mini components/UnAssignTask'
+import { red } from '@mui/material/colors'
 // import { Link } from 'react-router-dom'
 // import moment from 'moment'
 
@@ -53,10 +54,11 @@ const Project = () => {
             <tbody>
             {specificTasks.map(task=> (
                 <tr key={task.id}>
-                <td>{task.task_name}</td>
+                <td >{task.task_name}</td>
                 <td>{task.email ? task.email : "unassigned"}</td>
                 <td>{task.isCompleted ? "Completed" : "OnGoing"}</td>
-                <td><DeleteIcon className="delete-btn" onClick={()=> deletingTask(task.id)}/> </td>
+                <td>{!task.isAssigned ? <DeleteIcon sx={{ color: red[500] }} className="delete-btn" onClick={()=> deletingTask(task.id)}/> : 
+                    <DeleteIcon sx={{ color: red[500] }} disabled/> }</td>
                 {/* <td><Checkbox /></td> */}
                 <td>{!task.isAssigned ? <AssignTask task_id={task.id} /> : <UnAssignTask task_id={task.id}/>}</td>
                 </tr>

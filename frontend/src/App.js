@@ -3,12 +3,13 @@ import './App.css';
 import { BrowserRouter, Route, Routes} from "react-router-dom";
 import { useSelector } from 'react-redux'
 import Signup from './components/main/Signup';
-import Home from './components/Home';
+// import Home from './components/Home';
 import Login from "./components/main/Login"
 import AdminRoutes from './components/AdminRoutes';
 import Header from './components/main/Header';
 import { ToastContainer} from 'react-toastify';
 import UserRoutes from './components/UserRoutes';
+import Footer from './components/mini components/Footer';
 
 
 const App = ()=> {
@@ -28,6 +29,7 @@ const App = ()=> {
       <AdminRoutes/> : <UserRoutes />
     }
     </div>
+    <Footer/>
     </BrowserRouter>
   );
 }

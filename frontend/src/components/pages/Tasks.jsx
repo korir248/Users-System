@@ -47,6 +47,7 @@ const Tasks = () => {
                 </tr>
 
             </thead>
+            <hr/>
             <tbody>
             {tasks.map((task,index)=> (
                 <tr key={task.id}>

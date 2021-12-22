@@ -26,15 +26,22 @@ const Signup = ()=>{
         <div className="form">
             <div className="signup-form">
                 <form onSubmit={(e)=> registerUser(e)}>    
-                    <p>Signup Form</p>                
+                    <p>Signup Form</p>  
+                    <label>Fullname</label>              
                     <input name="fullname" placeholder="Enter Fullname" required onChange={handleChange}></input>
+                    <label>Username</label>
                     <input name="username" placeholder="Enter Username" required onChange={handleChange}></input>
+                    <label>Email</label>
                     <input name="email" placeholder="Enter Email" required onChange={handleChange}></input>
+                    <label>
+                        Password
+                    </label>
                     <input type="password" name="password"  placeholder="Enter Password" required onChange={handleChange}></input>
+                    <label> Confirm Password</label>
                     <input type="password" name="cpassword" placeholder="Enter Confirm Password" required onChange={handleChange}></input>
                     <button className="btn-submit" type="submit" value="Submit" > {loading ? "Signing up..." : "Submit"}</button>
                     {/* {error ? <h4 className="error-msg">{error}!!!</h4> : ""} */}
-                    <i>Already have an account? <Link to="/login">Log in</Link></i><br/>
+                    <p>Already have an account? <Link to="/login">Log in</Link></p><br/>
                     <i><Link to="/">Cancel</Link></i>
                 </form>
             </div>
