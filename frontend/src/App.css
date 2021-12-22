@@ -27,6 +27,10 @@
   margin-top: 100px;
   display: flex;
 }
+.user-page{
+  /* margin-top: 100px; */
+  /* display: flex; */
+}
 .form{
   display: flex;
   align-items: center;

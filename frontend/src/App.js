@@ -1,19 +1,14 @@
 import './App.css';
+
 import { BrowserRouter, Route, Routes} from "react-router-dom";
+import { useSelector } from 'react-redux'
 import Signup from './components/main/Signup';
 import Home from './components/Home';
 import Login from "./components/main/Login"
-import Error from './components/pages/Error';
-import Admin from './components/pages/Admin';
-import Header from './components/main/Header';
-import Users from './components/pages/Users';
-import SideBar from './components/mini components/SideBar';
-import Projects from './components/pages/Projects';
-import { useSelector } from 'react-redux'
-import Tasks from './components/pages/Tasks';
-import User from './components/pages/User';
-import Project from './components/pages/Project';
 import AdminRoutes from './components/AdminRoutes';
+import Header from './components/main/Header';
+import { ToastContainer} from 'react-toastify';
+import UserRoutes from './components/UserRoutes';
 
 
 const App = ()=> {
@@ -21,24 +16,17 @@ const App = ()=> {
   return (
     <BrowserRouter>
     <div className="App">
+    <ToastContainer/>
+
     <Header/>
     <Routes>
-      {/* <Route path="/register" element={<Signup/>}/>
-      <Route path="/login" element={<Login/>}/> */}
-      {/* {!user.isAdmin && <Route path="/" element={<Home/>}/>} */}
-      
+      <Route path="/register" element={<Signup/>}/>
+      <Route path="/login" element={<Login/>}/>      
     </Routes>
     
     {user?.isAdmin ? 
-      <AdminRoutes/>
-    : 
-    <>
-    <Routes>
-      <Route path="/register" element={<Signup/>}/>
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/" element={<Home/>}/>
-    </Routes>
-    </>}
+      <AdminRoutes/> : <UserRoutes />
+    }
     </div>
     </BrowserRouter>
   );
