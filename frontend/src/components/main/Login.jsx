@@ -1,12 +1,14 @@
-import React,{ useState} from 'react'
+import React,{ useEffect, useState} from 'react'
 import { Link ,Navigate} from 'react-router-dom'
 import { useDispatch, useSelector} from 'react-redux'
 import { loginUser } from '../../redux/actions/userActions'
+// import { toast } from 'react-toastify'
+import moment from 'moment'
 
 const Login = ()=> {
 
     const dispatch = useDispatch()
-    const {user, loading, error} = useSelector(state => state.user)
+    const {user, loading, error,message} = useSelector(state => state.user)
     
     
     const [formData, setFormData] = useState({})
@@ -21,12 +23,26 @@ const Login = ()=> {
         e.preventDefault()
         console.log("Logging in:", formData);
         dispatch(loginUser(formData))
+        console.log(moment().format());
     }
-    // console.log(user);
+    const notify = () =>  {
+        // return toast.success("Login was successful!");
+    }
+    
+    // useEffect(() => {
+    //     if(user) return toast.success("Login was successful!");
+        
+    // }, [user])
+
     if (user.username) {
-        if(user.isAdmin) return <Navigate to={"/admin"}/>
+        notify()
+        if(user.isAdmin) return (
+        <Navigate to={"/admin"}/>
+        )
+
         return <Navigate to={"/"}/>
     }
+
 
 
     // console.log(formData)
@@ -42,7 +58,7 @@ const Login = ()=> {
             <input name="password" type="password" placeholder="Enter Password" onChange={handleChange} required/>
 
             <button className="btn-submit" type="submit">{loading ? "Logging in..." : "Login"}</button>
-            {error ? <h4 className="error-msg">{error}!!!</h4> : ""}
+            {/* {error ? <h4 className="error-msg">{error}!!!</h4> : ""} */}
             <i>Don't have an account? <Link to="/register">Sign up now!</Link></i><br/>
                     <i><Link to="">Forgot password?</Link></i>
         </form>

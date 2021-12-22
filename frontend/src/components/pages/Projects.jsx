@@ -3,16 +3,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import  moment  from 'moment'
 import { Link } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { Checkbox } from '@mui/material'
-import { getProjects } from '../../redux/actions/projectActions'
-
+// import { Checkbox } from '@mui/material'
+import { deleteProject, getProjects } from '../../redux/actions/projectActions'
+import { Button } from '@mui/material'
+import CreateProject from '../mini components/CreateProject'
+import { red } from '@mui/material/colors'
 
 const Projects = () => {
     const {projects,error} = useSelector(state => state.project)
 
     const dispatch = useDispatch()
     // console.log(projects);
-    const deletingProject = ()=>{
+    const deletingProject = (id)=>{
+        dispatch(deleteProject(id))
+        
 
     }
     useEffect(() => {
@@ -23,41 +27,42 @@ const Projects = () => {
     
     return (
         <div className="admin"> 
-            <p>Projects</p>
+            <p className="title">Projects</p>
+            <CreateProject/>
             {error ? 
             <p>{error}</p>
             : 
             <>
-            {/* {projects.map(project=> {
-                return (
-                    <div key={project.id} className="single-project">
-                        <p>{project.project_name}</p>
-                        <p>{moment(project.date_created).format('dddd Do MMMM YYYY')}</p>
-                        <p>Completed: {project.isCompleted.toString()}</p>                   
-                    </div>
-                )
-            }
-            )}        */}
+            <table>
             <thead>
-                <td>Project Name</td>
-                <td>Date Created</td>
-                <td>Status</td>
-                <td></td>
-                <td></td>
-            </thead>
-            {projects.map(project=>{
-                return (
-                <Link to={`/admin/projects/${project.id}`}>
                 <tr>
+                    <td>#</td>
+                    <td>Project Name</td>
+                    <td>Date Created</td>
+                    <td>Status</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            </thead>
+            <tbody>
+            {projects.map((project,index)=>{
+                return (
+                <tr key={project.id}>
+                <td>{index + 1}</td>
                 <td>{project.project_name}</td>
                 <td>{moment(project.date_created).format('dddd Do MMMM YYYY')}</td>
                 <td>{project.isCompleted ? "Completed" : "OnGoing"}</td>
-                <td><DeleteIcon className="delete-btn" onClick={()=> deletingProject(project.id)}/> </td>
-                <td><Checkbox/></td>
+                <td><DeleteIcon sx={{ color: red[500] }} className="delete-btn" onClick={()=> deletingProject(project.id)}/> </td>
+                {/* <td><Checkbox/></td> */}
+                <td><Link to={`/admin/projects/${project.id}`}><Button variant='contained' size='small'>VIEW TASKS</Button></Link></td>
                 </tr>
-                </Link>
+                
                 )
             })}
+            </tbody>
+            </table>
             </>}
         
             

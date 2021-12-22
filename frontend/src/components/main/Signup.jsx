@@ -7,7 +7,7 @@ import { createUser } from "../../redux/actions/userActions";
 const Signup = ()=>{
     const [formData, setFormData] = useState({});
 
-    const {loading,error} = useSelector(state => state.user)
+    const {loading} = useSelector(state => state.user)
 
     const handleChange = (e)=>{
         e.preventDefault()
@@ -22,8 +22,6 @@ const Signup = ()=>{
         dispatch(createUser(formData))
     }
 
-
-
     return (
         <div className="form">
             <div className="signup-form">
@@ -35,7 +33,7 @@ const Signup = ()=>{
                     <input type="password" name="password"  placeholder="Enter Password" required onChange={handleChange}></input>
                     <input type="password" name="cpassword" placeholder="Enter Confirm Password" required onChange={handleChange}></input>
                     <button className="btn-submit" type="submit" value="Submit" > {loading ? "Signing up..." : "Submit"}</button>
-                    {error ? <h4 className="error-msg">{error}!!!</h4> : ""}
+                    {/* {error ? <h4 className="error-msg">{error}!!!</h4> : ""} */}
                     <i>Already have an account? <Link to="/login">Log in</Link></i><br/>
                     <i><Link to="/">Cancel</Link></i>
                 </form>

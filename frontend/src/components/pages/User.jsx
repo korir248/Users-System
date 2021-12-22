@@ -12,6 +12,7 @@ const User = () => {
 
     return (
         <div className="admin">
+        <h4> Details for {user.fullname}</h4>
         {/* {user.map(user=>( */}
             <div>
             <p>{user.fullname}</p>
