@@ -48,6 +48,9 @@ export const deleteProject = (id)=> async(dispatch)=>{
 
         }
         await axios.delete("http://localhost:3002/admin/projects",config)
+        dispatch({
+            type: "ERROR_DELETE"
+        })
 
         dispatch(getProjects())
         

@@ -1,5 +1,6 @@
 import {CREATE_TASK_FAILED, CREATE_TASK_SUCCESS, GET_TASKS_FAILED, GET_TASKS_REQUEST, GET_TASKS_SUCCESS } from "../types"
 import axios from 'axios'
+import { toast } from "react-toastify"
 
 
 
@@ -50,12 +51,13 @@ export const deleteTask = (id)=> async(dispatch)=>{
         // console.log(token);
         const {data} = await axios.delete("http://localhost:3002/admin/tasks",config)
         console.log(data);
-
+        toast('Task deleted!')
         dispatch(getTasks())        
 
         
     } catch (error) {
         console.log(error.message)
+        toast.warn("Could not delete!")
         
     }
     

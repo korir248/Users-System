@@ -1,5 +1,6 @@
 import { LOGIN_FAIL,LOGIN_SUCCESS,LOGIN_REQUEST,SIGNUP_FAIL,SIGNUP_STATUS,SIGNUP_SUCCESS, LOG_OUT, GET_USERS_REQUEST, GET_USERS_SUCCESS, GET_USERS_FAILED} from '../types'
 import axios from "axios"
+import { toast } from 'react-toastify'
 
 export const createUser = (user)=> async(dispatch)=>{
     const {username, fullname,email,password,cpassword} = user
@@ -26,10 +27,11 @@ export const createUser = (user)=> async(dispatch)=>{
                 message: "Signup was successful",
                 data: data
             }})
+        toast.success("User created successfully!")
         
     } catch (error) {
         console.log(error.message);
-
+        toast.warning("Error Occured when registering!")
         dispatch({
             type: SIGNUP_FAIL,
             payload: error.message,
@@ -59,16 +61,21 @@ export const loginUser = (user)=> async(dispatch)=>{
         localStorage.setItem('token',data.token)
         sessionStorage.setItem('user',JSON.stringify(data.user))
 
+        toast.success(data.message)
+
         setTimeout(() => {            
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: data.user
             })
         }, 500);
+
         
 
     } catch (error) {
         console.log(error.message);
+
+        toast.error("Error occured during log in!")
 
         dispatch({
             type: LOGIN_FAIL,
