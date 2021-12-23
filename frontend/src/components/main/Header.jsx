@@ -17,7 +17,7 @@ const Header = () => {
         <div>
             <div className="header">
                 <p className="header-txt">User System</p>
-                <p><Link to="/">Back to home</Link></p>
+                <p><Link to="/">Home</Link></p>
                 {/* <button className="log-out-btn" onClick={()=>loggingOut()}>LOG OUT</button> */}
                 
             </div>

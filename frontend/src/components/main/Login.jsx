@@ -23,9 +23,7 @@ const Login = ()=> {
         e.preventDefault()
         console.log("Logging in:", formData);
         dispatch(loginUser(formData))
-        console.log(moment().format());
     }
-
     if (user.username) {
         
         if(user.isAdmin) return (

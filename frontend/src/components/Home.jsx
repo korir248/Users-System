@@ -23,7 +23,7 @@ const Home = ()=> {
             <UserDashboard/>
             <div>
                 <Link to="/">
-                    <button onClick={()=>loggingOut()}>Log Out</button>
+                    <button  className="user-dashboard-btn" onClick={()=>loggingOut()}>Log Out</button>
                 </Link>
             </div>
             </div>

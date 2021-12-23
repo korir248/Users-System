@@ -1,5 +1,5 @@
 import React,{ useState} from 'react'
-// import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Button from "@mui/material/Button";
 // import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -11,8 +11,10 @@ import Box from "@mui/material/Box";
 // import { MenuItem, Select } from '@mui/material';
 // import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import moment from 'moment';
+import { createProject } from '../../redux/actions/projectActions';
 
 const CreateProject = () => {
+    const dispatch = useDispatch()
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({})
     
@@ -34,8 +36,8 @@ const CreateProject = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();		 
 		setOpen(false);
-        console.log(formData);
-        console.log(moment());
+        const createdate = moment().format()
+        dispatch(createProject(formData.projectname,createdate,formData.duedate))
 
     };
 

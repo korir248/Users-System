@@ -1,7 +1,7 @@
 import { Checkbox, FormControlLabel } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getTasks } from '../redux/actions/taskActions'
+import { getTasks, submitTask } from '../redux/actions/taskActions'
 
 
 const UserDashboard = () => {
@@ -17,7 +17,8 @@ const UserDashboard = () => {
         
     }, [dispatch])
 
-    const handleChange = ()=>{
+    const handleChange = (e)=>{
+        if(e.target.checked) dispatch(submitTask(e.target.value))
 
     }
 
@@ -29,7 +30,7 @@ const UserDashboard = () => {
         {specTasks.length ? 
         <>
         <p>
-            You are currently working on the following tasks
+            You are currently working on the following {specTasks.length === 1 ? 'task' : 'tasks'}:
         </p>
             <table>
             <thead>
@@ -53,10 +54,10 @@ const UserDashboard = () => {
                 <td>{task.task_name}</td>
                 <td>{task.project_name}</td>
                 {/* <td>{task.isAssigned.toString()}</td> */}
-                <td>{task.isSubmitted ? "Completed" : "Not Yet"}</td> 
+                <td>{task.isCompleted ? "Yes" : "Not Yet"}</td> 
                  {/* <td>{!task.isAssigned ? <DeleteIcon sx={{ color: red[500] }} className="delete-btn" onClick={()=> deletingTask(task.id)}/> : 
                     <DeleteIcon sx={{ color: red[500] }} disabled/> }</td> */}
-                <td>{!task.isSubmitted ? <FormControlLabel control={ <Checkbox onChange={handleChange} value={task.id}/>}color='success' label="Submit"/>: "Complete"}</td> 
+                <td>{!task.isSubmitted ? <FormControlLabel control={ <Checkbox onChange={handleChange} value={task.id}/>} label="Submit"/>: "Submitted"}</td> 
                 {/* <td>{!task.isAssigned ? <AssignTask task_id={task.id} project_id={task.project_id}/> : <UnAssignTask task_id={task.id}/>}</td> */}
                 </tr>
         )
@@ -64,7 +65,11 @@ const UserDashboard = () => {
         </tbody>
         </table>
         </>
-            : <p>You haven't been assigned a task yet!</p>}
+            : 
+            <>
+            <p>You haven't been assigned a task yet!</p>
+            <p>A task will be assigned to you shortly!</p>
+            </>}
             
         </div>
     )
