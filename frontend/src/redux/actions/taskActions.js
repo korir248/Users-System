@@ -51,7 +51,7 @@ export const deleteTask = (id)=> async(dispatch)=>{
         // console.log(token);
         const {data} = await axios.delete("http://localhost:3002/admin/tasks",config)
         console.log(data);
-        toast('Task deleted!')
+        toast.info('Task deleted!')
         dispatch(getTasks())        
 
         
@@ -159,6 +159,30 @@ export const completeTask = (id)=> async(dispatch)=>{
         
     } catch (error) {
         console.log(error);
+        
+    }
+}
+
+export const submitTask = (task_id)=> async(dispatch)=>{
+    let token = localStorage.getItem('token')
+    try {
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token,
+            }
+
+        }
+
+        const {data} = await axios.put("http://localhost:3002/tasks/submit",{task_id},config)
+        console.log(data);
+        toast.success(data)
+
+        dispatch(getTasks())
+
+        
+    } catch (error) {
+        console.log(error.message);
         
     }
 }

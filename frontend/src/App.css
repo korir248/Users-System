@@ -4,6 +4,7 @@
 }
 .header>p{
   font-size: 30px;
+  font-weight: bold;
   margin-left: 20px;
 }
 .header{
@@ -32,23 +33,30 @@
   /* display: flex; */
 }
 .form{
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
+
+  margin-top: 20vh; 
 }
-input,button{
+
+input{
   width: 100%;
   height: 50px;
   margin-bottom: 15px;
   font-size: medium;
 }
+button{
+  height: 50px;
+
+}
 .signup-form{
-  align-self: center;
-  width: 80%;
+  width: 45%;
   margin: auto;
   padding: 20px;
   padding-right: 25px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   margin-top: 50px;
+
 
 }
 .btn-submit{
@@ -56,10 +64,12 @@ input,button{
   background-color: green;
   color: white;
   font-size:medium;
+  margin-left: 4px;
+  /* margin-right: 0px; */
 }
 .login-form{
-  background-color: white;
-  width: 80%;
+  /* background-color: white; */
+  width: 45%;
   margin: auto;
   padding: 20px;
   padding-right: 25px;
@@ -72,12 +82,15 @@ input,button{
   font-weight: bold;
 }
 
+
 .sidebar{
   text-align: center;
-  flex: 1;
-  background-color: rgba(0,0,0,0.2);
+  flex: 1.5;
+  /* background-color: rgba(0,0,0,0.2); */
+  background-color: lightgray;
   margin: 10px;
   height: calc(100vh - 15vh);
+  /* height: 100%; */
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -86,6 +99,7 @@ input,button{
 .admin{
   flex: 4;
   border-radius: 10px;
+  height: calc(100vh - 15vh);
   margin: 10px;
   padding: 20px;
   /* background-color: rgba(0,0,0,0.2); */
@@ -127,7 +141,15 @@ li:active{
   flex-direction: column;
 }
 .login{
-  margin-top: 20vh;  
+  margin-top: 20vh; 
+  font-size: 19px;
+}
+.login p{
+  font-weight: bold;
+}
+.login i{
+  font-size: 17px;
+  margin: 10px;
 }
 
 /* .sidebar li{
@@ -179,4 +201,47 @@ thead{
   font-weight: bolder;
   font-size: larger;
   margin-left: 10px;
+}
+.log-out-btn{
+  width: 5%;
+  margin: 20px;
+}
+.footer{
+  margin-left: 45%;
+  margin-bottom: 5px;
+  position: relative;
+  font-size: small;
+  bottom: 0;
+}
+.home-page{
+  margin: auto;;
+  background-color: lightgray;
+  width: 70%;
+  padding: 20px;
+  font-size: x-large;
+  border-radius: 10px;
+  margin-top: 20vh;
+}
+.home-page a{
+  /* background-color: lime; */
+  border-radius: 10px;
+  color: blue;
+  padding: 10px;
+}
+.user-dashboard{
+  width: 80%;
+  margin: auto;
+  background-color: lightgray;
+  padding: 20px;
+}
+.user-dashboard p{
+  font-size: larger;
+}
+.user-dashboard-btn{
+  background-color: lightgray;
+  border-radius: 5px;
+  margin: 120px;
+
+  height: 50px;
+  width: 100px;
 }

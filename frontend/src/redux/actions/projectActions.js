@@ -2,6 +2,7 @@ import { GET_PROJECTS_FAILED, GET_PROJECTS_REQUEST, GET_PROJECTS_SUCCESS } from 
 import axios from "axios";
 import { getTasks } from "./taskActions";
 import { getUsers } from "./userActions";
+import { toast } from "react-toastify";
 
 export const getProjects = ()=> async(dispatch)=>{
     try {
@@ -79,6 +80,28 @@ export const undo = ()=> async(dispatch)=>{
         
     } catch (error) {
         console.log(error.message);
+        
+    }
+}
+
+export const createProject = (project_name,date_created,due_date)=> async(dispatch)=>{
+    try {
+        let token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token
+            }
+        }
+        const { data} = await axios.post("http://localhost:3002/admin/projects/create",{project_name,date_created,due_date},config)
+
+        console.log(data);
+
+        dispatch(getProjects())
+        
+    } catch (error) {
+        console.log(error.message);
+        toast.error("Could not Add Project")
         
     }
 }

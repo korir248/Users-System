@@ -201,11 +201,12 @@ const unAssignTask = async(req,res)=>{
 
 const submitTask = async(req,res)=>{
     const { task_id } = req.body
+    console.log(task_id);
     try {
         let pool = await mssql.connect(config)
         let task = pool.request().input("task_id",task_id).execute('spSubmitTask',(err)=>{
             if(err) return res.status(401).send({
-                message: "An eror occured!",
+                message: "An error occured!",
                 error: error.message
             })
             return res.status(200).send("Task submitted!")

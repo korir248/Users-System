@@ -19,7 +19,7 @@ const SideBar = () => {
             <Link to={"/admin/users"}><li >Users</li></Link>
             <Link to={"/admin/projects"}><li >Projects</li></Link>
             <Link to={"/admin/tasks"}><li>Tasks</li></Link>
-            <li>Settings</li>
+            {/* <li>Settings</li> */}
             <Link to="/"><li onClick={()=> loggingOut()}>Log Out</li></Link>       
         
             

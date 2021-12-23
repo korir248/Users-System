@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 
 export const createUser = (user)=> async(dispatch)=>{
     const {username, fullname,email,password,cpassword} = user
+    if(password !== cpassword) toast.error("Both passwords must match")
 
 
     try {
@@ -27,15 +28,15 @@ export const createUser = (user)=> async(dispatch)=>{
                 message: "Signup was successful",
                 data: data
             }})
-        toast.success("User created successfully!")
+        toast.success("Signup was successful")
         
     } catch (error) {
         console.log(error.message);
-        toast.warning("Error Occured when registering!")
+        toast.error("An error occured when registering!")
         dispatch({
             type: SIGNUP_FAIL,
             payload: error.message,
-            message: "Error Occured when registering!"
+            message: "An error occured when registering!"
         })
         
     }

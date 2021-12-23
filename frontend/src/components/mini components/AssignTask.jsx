@@ -12,6 +12,8 @@ const AssignTask = ({task_id,project_id}) => {
 	const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({})
     const {users} = useSelector(state => state.user)
+
+	// const availableUsers = users
 	
     const handleClickOpen = () => {
 		setOpen(true);

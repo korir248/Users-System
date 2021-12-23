@@ -6,7 +6,7 @@ const router =  express.Router()
 
 // Project routes
 router.route("/admin/projects").get(auth,getAllProjects)
-router.route("/admin/projects").post(auth,createProject)
+router.route("/admin/projects/create").post(auth,createProject)
 router.route("/admin/projects").delete(auth,deleteProject)
 router.route("/admin/projects/:id").get(auth,getSpecificProject)
 router.route("/admin/projects").put(auth,undo)

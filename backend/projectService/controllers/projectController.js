@@ -12,10 +12,11 @@ const getAllProjects = async(req,res)=>{
                     id: project.project_id,
                     project_name: project.project_name.trim(),
                     date_created: project.date_created,
+                    due_date: project.due_date,
                     isCompleted: project.isCompleted
                  }
             })
-            // console.log(p)
+            console.log(p)
             return res.status(200).send(p)
         })
         return projects
@@ -75,14 +76,16 @@ const deleteProject = async(req,res)=>{
     }
 }
 const createProject = async(req,res)=>{
-    const { project_name,date_created} = req.body
+    const { project_name,date_created,due_date} = req.body
     try {
         let pool = await mssql.connect(config)    
-        let project = pool.request().input("project_name",`${project_name}`).input("date_created",`${date_created}`).execute('spCreateProject',(err,result)=>{
-            if(err) return res.status(401).send({
+        let project = pool.request().input("project_name",`${project_name}`).input("date_created",`${date_created}`).input('due_date',`${due_date}`).execute('spCreateProject',(err,result)=>{
+            // console.log(err);
+            if(err) {
+                return res.status(401).send({
                 message: "An error ocurred!",
                 error: err.message
-            })
+            })}
             console.log(result.recordset);
             return res.status(201).send({
                 message: "Project added successfully!",
