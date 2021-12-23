@@ -9,7 +9,7 @@ const validateUser = (user)=>{
         cpassword: joi.string().min(8).required()
     } )
 
-    console.log(schema.validate(user));    
+    // console.log(schema.validate(user).error.details[0].message);    
     return schema.validate(user)
 }
 
