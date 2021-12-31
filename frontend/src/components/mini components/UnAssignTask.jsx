@@ -12,7 +12,7 @@ const UnAssignTask = ({task_id}) => {
     return (
         <div>
             <div>
-            <Button className="assign-btn" variant='contained' size="small" onClick={handleUnAssign}>
+            <Button className="assign-btn" sx={{backgroundColor: 'green' ,color: 'white'}} variant='contained' size="small" onClick={handleUnAssign}>
 				UNASSIGN
 			</Button>
             </div>
