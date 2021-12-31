@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,Navigate } from "react-router-dom";
 import { useDispatch, useSelector} from "react-redux"
 import { createUser } from "../../redux/actions/userActions";
 
 
 const Signup = ()=>{
     const [formData, setFormData] = useState({});
-
-    const {loading} = useSelector(state => state.user)
+    const {message,loading} = useSelector(state => state.user)
 
     const handleChange = (e)=>{
         e.preventDefault()
@@ -20,6 +19,10 @@ const Signup = ()=>{
     const registerUser = (e)=>{
         e.preventDefault()
         dispatch(createUser(formData))
+    }
+
+    if (message === "Signup was successful") {
+        return <Navigate to={"/login"}/>
     }
 
     return (
