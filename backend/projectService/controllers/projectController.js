@@ -16,7 +16,7 @@ const getAllProjects = async(req,res)=>{
                     isCompleted: project.isCompleted
                  }
             })
-            console.log(p)
+            // console.log(p)
             return res.status(200).send(p)
         })
         return projects
