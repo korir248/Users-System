@@ -56,9 +56,8 @@ button{
   padding-right: 25px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   margin-top: 50px;
-
-
 }
+
 .btn-submit{
   width: 100% !important;
   background-color: green;
@@ -85,7 +84,7 @@ button{
 
 .sidebar{
   text-align: center;
-  flex: 1.5;
+  flex: 1;
   /* background-color: rgba(0,0,0,0.2); */
   background-color: lightgray;
   margin: 10px;
@@ -238,7 +237,9 @@ thead{
   font-size: larger;
 }
 .user-dashboard-btn{
-  background-color: lightgray;
+  background-color: green;
+  color: white;
+  font-weight: bold;
   border-radius: 5px;
   margin: 120px;
 
