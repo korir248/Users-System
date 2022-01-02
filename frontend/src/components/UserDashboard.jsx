@@ -38,9 +38,9 @@ const UserDashboard = () => {
                     {/* <td>#</td> */}
                     <td>Task</td>
                     <td>Project</td>
-                    <td>isSubmitted</td>
-                    <td>Status</td>
-                    {/* <td></td> */}
+                    <td>isCompleted</td>
+                    {/* <td>Status</td> */}
+                    <td></td>
                     {/* <td></td> */}
                     {/* <td></td> */}
                 </tr>
@@ -54,7 +54,7 @@ const UserDashboard = () => {
                 <td>{task.task_name}</td>
                 <td>{task.project_name}</td>
                 {/* <td>{task.isAssigned.toString()}</td> */}
-                <td>{task.isCompleted ? "Yes" : "Not Yet"}</td> 
+                <td>{task.isCompleted ? "Yes" : "Pending"}</td> 
                  {/* <td>{!task.isAssigned ? <DeleteIcon sx={{ color: red[500] }} className="delete-btn" onClick={()=> deletingTask(task.id)}/> : 
                     <DeleteIcon sx={{ color: red[500] }} disabled/> }</td> */}
                 <td>{!task.isSubmitted ? <FormControlLabel control={ <Checkbox onChange={handleChange} value={task.id}/>} label="Submit"/>: "Submitted"}</td> 

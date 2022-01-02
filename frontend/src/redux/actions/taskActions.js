@@ -83,6 +83,7 @@ export const createTask = (task_name,id)=> async(dispatch)=>{
             type: CREATE_TASK_SUCCESS,
             payload: data
         })
+        toast.success("Task Created!")
         dispatch(getTasks())
         
     } catch (error) {
@@ -106,12 +107,13 @@ export const assignTask = (task_id,user_id)=> async(dispatch)=>{
 
         }
 
-        const {data} = await axios.put("http://localhost:3002/admin/tasks",{task_id,user_id},config)
-        console.log(data);
-
+        await axios.put("http://localhost:3002/admin/tasks",{task_id,user_id},config)
+        
         dispatch(getTasks())
+        toast.info('Task assigned')
         
     } catch (error) {
+        toast.error("Could not assign task!")
         console.log(error.message);
         
     }
@@ -126,7 +128,6 @@ export const unAssignTask = (task_id)=> async(dispatch)=>{
                 'Content-type': 'application/json',
                 'Authorization': token,
             }
-
         }
 
         const { data } = await axios.put("http://localhost:3002/admin/tasks/unassign",{task_id},config)
@@ -135,6 +136,7 @@ export const unAssignTask = (task_id)=> async(dispatch)=>{
         dispatch(getTasks())
         
     } catch (error) {
+        toast.error(error.message)
         console.log(error.message);
         
     }
