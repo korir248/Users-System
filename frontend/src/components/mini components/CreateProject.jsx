@@ -1,5 +1,5 @@
 import React,{ useState} from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Button from "@mui/material/Button";
 // import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -45,7 +45,7 @@ const CreateProject = () => {
         <div>
 
         <div>
-			<Button variant='contained' sx={{backgroundColor: 'green' ,color: 'white'}} onClick={handleClickOpen}>
+			<Button variant='contained'  onClick={handleClickOpen}>
 				CREATE PROJECT
 			</Button>
 			<Dialog open={open} onClose={handleClose}>
