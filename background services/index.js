@@ -1,16 +1,21 @@
 require('dotenv').config()
 const express = require('express')
-const PORT = process.env.PORT
 const cron = require('node-cron')
+const sendEmail = require('./controllers/mailController')
+const onRegister = require('./helpers/register')
 
 const app = express()
 
 const run = async()=>{
-    cron.schedule(' * * * * * *',async()=>{
-        console.log('1');
+    cron.schedule(' */15 * * * * *',async()=>{
+        console.log(1);
+        
+        await onRegister()
+        await onTaskAssign()
+        
     })
 }
 run()
-app.listen(PORT,()=>{
-    console.log(`App running on port ${PORT}`);
+app.listen(process.env.PORT,()=>{
+    console.log(`App running on port ${process.env.PORT}`);
 })
