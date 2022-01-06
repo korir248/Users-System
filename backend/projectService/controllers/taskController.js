@@ -230,10 +230,11 @@ const emailTask = async(req,res)=>{
         let tasks = pool.request().execute('spEmailTasks',(err,response)=>{
             if(err) return res.status(401).send({
                 message: "An error occured!",
-                error: error.message
+                error: err.message
             })
+
+            res.status(200).send(response.recordset)
         })
-        
         return tasks
     } catch (error) {
         return res.status(500).send({

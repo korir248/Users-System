@@ -18,8 +18,8 @@ const onRegister = async()=>{
                 html: `<div>
                 <h4 style="text-align: center, font-weight: bold;">Hi ${user.fullname}</h4>
                 <p style="text-align: center; color: grey; font-size: 19px"></p>
-                <p style="text-align: center; color: grey">we would like to welcome you to User System.</p>
-                <p style="text-align: center; color: grey">Thank you for registering!</p>
+                <p style="text-align: center; color: grey; font-size: 19px;">we would like to welcome you to User System.</p>
+                <p style="text-align: center; color: grey; font-size: 19px;">Thank you for registering!</p>
                 <hr>
                 <p style="text-align: center; color:grey;">If you have any questions send them to ${process.env.EMAIL}</p>
             </div>`,

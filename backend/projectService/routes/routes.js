@@ -1,7 +1,7 @@
 const express = require('express')
 const auth = require('../controllers/authController')
 const { getAllProjects, getSpecificProject,createProject, deleteProject, undo } = require('../controllers/projectController')
-const { getAllTasks, deleteTask, createTask, completeTask, getSingleTask, assignTask, unAssignTask, submitTask} = require('../controllers/taskController')
+const { getAllTasks, deleteTask, createTask, completeTask, getSingleTask, assignTask, unAssignTask, submitTask, emailTask} = require('../controllers/taskController')
 const router =  express.Router()
 
 // Project routes
