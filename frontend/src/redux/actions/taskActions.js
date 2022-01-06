@@ -1,0 +1,190 @@
+import {CREATE_TASK_FAILED, CREATE_TASK_SUCCESS, GET_TASKS_FAILED, GET_TASKS_REQUEST, GET_TASKS_SUCCESS } from "../types"
+import axios from 'axios'
+import { toast } from "react-toastify"
+
+
+
+export const getTasks = ()=> async(dispatch)=>{
+    try {
+        dispatch({
+            type: GET_TASKS_REQUEST
+        })
+        let token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token
+            }
+            
+        }
+        
+        const {data} = await axios.get("http://localhost:3002/admin/tasks",config)
+        console.log(data.tasks);
+        
+        dispatch({
+            type: GET_TASKS_SUCCESS,
+            payload: data.tasks
+        })
+        
+        
+    } catch (error) {
+        console.log(error.message);
+
+        dispatch({
+            type: GET_TASKS_FAILED,
+            payload: error.message
+        })
+    }
+}
+
+export const deleteTask = (id)=> async(dispatch)=>{
+    try {
+        let token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token,
+                id : id
+            }
+        }
+        
+        // console.log(token);
+        const {data} = await axios.delete("http://localhost:3002/admin/tasks",config)
+        console.log(data);
+        toast.info('Task deleted!')
+        dispatch(getTasks())        
+
+        
+    } catch (error) {
+        console.log(error.message)
+        toast.warn("Could not delete!")
+        
+    }
+    
+}
+
+export const createTask = (task_name,id)=> async(dispatch)=>{
+    // const {projects} = useSelector(state => state.project)
+
+    try {
+        let token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token,
+            }
+
+        }
+        
+        const { data} = await axios.post("http://localhost:3002/admin/tasks",{task_name,id},config)
+        console.log(data);
+        
+        dispatch({
+            type: CREATE_TASK_SUCCESS,
+            payload: data
+        })
+        toast.success("Task Created!")
+        dispatch(getTasks())
+        
+    } catch (error) {
+        dispatch({
+            type: CREATE_TASK_FAILED,
+            payload: error.messsage
+        })
+        
+    }
+}
+
+export const assignTask = (task_id,user_id)=> async(dispatch)=>{
+    try {
+        console.log(task_id,user_id);
+        let token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token,
+            }
+
+        }
+
+        await axios.put("http://localhost:3002/admin/tasks",{task_id,user_id},config)
+        
+        dispatch(getTasks())
+        toast.info('Task assigned')
+        
+    } catch (error) {
+        toast.error("Could not assign task!")
+        console.log(error.message);
+        
+    }
+
+}
+
+export const unAssignTask = (task_id)=> async(dispatch)=>{
+    try {
+        let token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token,
+            }
+        }
+
+        const { data } = await axios.put("http://localhost:3002/admin/tasks/unassign",{task_id},config)
+        console.log(data);
+
+        dispatch(getTasks())
+        
+    } catch (error) {
+        toast.error(error.message)
+        console.log(error.message);
+        
+    }
+}
+
+export const completeTask = (id)=> async(dispatch)=>{
+    try {
+        let token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token,
+            }
+
+        }
+
+        const {data} = await axios.put("http://localhost:3002/admin/tasks/complete",{id},config)
+        console.log(data);
+
+        dispatch(getTasks())
+
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
+export const submitTask = (task_id)=> async(dispatch)=>{
+    let token = localStorage.getItem('token')
+    try {
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token,
+            }
+
+        }
+
+        const {data} = await axios.put("http://localhost:3002/tasks/submit",{task_id},config)
+        console.log(data);
+        toast.success(data)
+
+        dispatch(getTasks())
+
+        
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+}

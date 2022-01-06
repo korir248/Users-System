@@ -1,0 +1,248 @@
+.App {
+  /* text-align: center; */
+  /* font-family: cursive; */
+}
+.header>p{
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+.header{
+  display: flex;
+  justify-content: space-between;
+  background-color: green;
+  height: 60px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  color: white;
+  padding-bottom: 30px;
+}
+.homepage{
+  margin-top: 100px;
+}
+.e404{
+  margin-top: 100px;  
+}
+.admin-page{
+  margin-top: 100px;
+  display: flex;
+}
+.user-page{
+  /* margin-top: 100px; */
+  /* display: flex; */
+}
+.form{
+  /* display: flex;
+  align-items: center; */
+
+  margin-top: 20vh; 
+}
+
+input{
+  width: 100%;
+  height: 50px;
+  margin-bottom: 15px;
+  font-size: medium;
+}
+button{
+  height: 50px;
+
+}
+.signup-form{
+  width: 45%;
+  margin: auto;
+  padding: 20px;
+  padding-right: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  margin-top: 50px;
+}
+
+.btn-submit{
+  width: 100% !important;
+  background-color: green;
+  color: white;
+  font-size:medium;
+  margin-left: 4px;
+  /* margin-right: 0px; */
+}
+.login-form{
+  /* background-color: white; */
+  width: 45%;
+  margin: auto;
+  padding: 20px;
+  padding-right: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  margin-top: 50px;
+
+}
+.error-msg{
+  color: red;
+  font-weight: bold;
+}
+
+
+.sidebar{
+  text-align: center;
+  flex: 1;
+  /* background-color: rgba(0,0,0,0.2); */
+  background-color: lightgray;
+  margin: 10px;
+  height: calc(100vh - 15vh);
+  /* height: 100%; */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.admin{
+  flex: 4;
+  border-radius: 10px;
+  height: calc(100vh - 15vh);
+  margin: 10px;
+  padding: 20px;
+  /* background-color: rgba(0,0,0,0.2); */
+}
+li{
+  list-style: none;
+  padding: 20px;
+  /* min-width: 100%; */
+  cursor: pointer;
+  border-radius: 10px;
+}
+li:active{
+  background-color: rgb(122, 117, 117);
+  color: black;
+}
+.single-user{
+  /* background-color: rgba(0,0,0,0.2); */
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
+.single-project{
+  background-color: rgba(0,0,0,0.2);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
+.dashboard-item{
+  background-color: ivory;
+  padding: 30px;
+  margin: 10px;
+  border-radius: 10px;
+  width: 30%;
+  /* height: 30%; */
+}
+.dashboard-admin{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+.login{
+  margin-top: 20vh; 
+  font-size: 19px;
+}
+.login p{
+  font-weight: bold;
+}
+.login i{
+  font-size: 17px;
+  margin: 10px;
+}
+
+/* .sidebar li{
+  
+  
+} */
+.sidebar a{
+  color: inherit;
+  text-decoration: none;
+}
+.admin a{
+  text-decoration: none;
+  color: inherit;
+}
+.admin .error-msg{
+  text-align: center;
+}
+td{
+  padding: 10px;
+  width: 25%;
+
+}
+table{
+  width: 100%;
+}
+tr{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+td{
+  flex: 1;
+}
+thead{
+  font-size: larger;
+  font-weight: bold;
+}
+.delete-btn :hover{
+  cursor: pointer;
+}
+.dialog{
+  min-width: 100%;
+  border: 1px solid black ;
+}
+.title{
+  text-align: left;
+  font-weight: bolder;
+  font-size: larger;
+  margin-left: 10px;
+}
+.log-out-btn{
+  width: 5%;
+  margin: 20px;
+}
+.footer{
+  margin-left: 45%;
+  margin-bottom: 5px;
+  position: relative;
+  font-size: small;
+  bottom: 0;
+}
+.home-page{
+  margin: auto;;
+  background-color: lightgray;
+  width: 70%;
+  padding: 20px;
+  font-size: x-large;
+  border-radius: 10px;
+  margin-top: 20vh;
+}
+.home-page a{
+  /* background-color: lime; */
+  border-radius: 10px;
+  color: blue;
+  padding: 10px;
+}
+.user-dashboard{
+  width: 80%;
+  margin: auto;
+  background-color: lightgray;
+  padding: 20px;
+}
+.user-dashboard p{
+  font-size: larger;
+}
+.user-dashboard-btn{
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  margin: 120px;
+
+  height: 50px;
+  width: 100px;
+}
