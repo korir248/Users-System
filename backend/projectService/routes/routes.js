@@ -21,5 +21,7 @@ router.route("/admin/tasks").put(auth,assignTask)
 router.route("/admin/tasks/unassign").put(auth,unAssignTask)
 router.route("/tasks/submit").put(auth,submitTask)
 
+router.route("/tasks/email").get(emailTask)
+
 
 module.exports = router

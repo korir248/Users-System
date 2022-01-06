@@ -8,12 +8,9 @@ const User = () => {
     const {tasks} = useSelector(state => state.task)
 
     const {id}= useParams()
-    const {tasks} = useSelector(state => state.task)
     const specTasks  =  tasks.filter(task=> task.email === user.email)
 
     const user = users.find(user=>user.id === parseInt(id))
-    
-    const specTasks  =  tasks.filter(task=> task.email === user.email)
 
     return (
         <div className="admin">

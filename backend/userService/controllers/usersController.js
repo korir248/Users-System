@@ -150,5 +150,21 @@ const getSpecificUser = async(req,res)=>{
         
     }
 }
+const sendEmailRegister = async(req,res)=>{
+    try {
+        let pool  = await mssql.connect(config)
+        let users = pool.request().execute('spUserEmailUnsent',(err,result)=>{
+            if(err) return res.status(401).send({
+                error: err.message
+            })
+            return res.status(200).send(result.recordset)
+        })
+        return users
+        
+    } catch (error) {
+        console.log(error.message);   
+        res.status(500) .send(error.message)   
+    }
+}
 
-module.exports = { getUsers,addUser,loginUser, deleteUser,getSpecificUser}
+module.exports = { getUsers,addUser,loginUser, deleteUser,getSpecificUser,sendEmailRegister}
