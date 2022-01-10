@@ -3,7 +3,7 @@ import axios from "axios"
 import { toast } from 'react-toastify'
 
 export const createUser = (user)=> async(dispatch)=>{
-    const {username, fullname,email,password,cpassword} = user
+    const {username, fullname,email,password,cpassword,phonenumber} = user
     if(password !== cpassword) toast.error("Both passwords must match")
 
 
@@ -19,7 +19,7 @@ export const createUser = (user)=> async(dispatch)=>{
             }
 
         }
-        const {data} = await axios.post("http://localhost:3001/register",{username, fullname,email,password,cpassword},config)
+        const {data} = await axios.post("http://localhost:3001/register",{username, fullname,email,phonenumber,password,cpassword},config)
         console.log(data);
         
         dispatch({
@@ -31,7 +31,7 @@ export const createUser = (user)=> async(dispatch)=>{
         toast.success("Signup was successful")
         
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
         toast.error("An error occured when registering!")
         dispatch({
             type: SIGNUP_FAIL,
