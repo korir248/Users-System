@@ -5,6 +5,7 @@ const validateUser = (user)=>{
         username: joi.string().required(),
         fullname: joi.string().required(),
         email: joi.string().email().required(),
+        phonenumber: joi.number().required(),
         password: joi.string().min(8).required(),
         cpassword: joi.string().min(8).required()
     } )
