@@ -9,6 +9,7 @@ const auth = async(req, res, next)=>{
         })
         try {
           jwt.verify(token, process.env.SECRET)
+          console.log('verified');
           
           next();
         } catch (error) {          
