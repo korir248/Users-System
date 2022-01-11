@@ -63,7 +63,7 @@ const loginUser = async(req,res)=>{
 }
 
 const addUser = async(req,res)=>{
-    const {username,fullname, email,password,cpassword} = req.body
+    const {username,fullname, email,password,cpassword,phonenumber} = req.body
 
     if(cpassword !== password) return res.status(401).send({
         error: "Confirm that both passwords match!"
@@ -80,7 +80,7 @@ const addUser = async(req,res)=>{
                 user.email === email || user.username === username
             })
             if(user) return res.status(401).send("Email or Username is already taken")    
-            let resquery= pool.request().input("fullname",`${fullname}`).input("username",`${username}`).input("email",`${email}`).input("password",`${password}`).execute('spAddUser',(err,result)=>{
+            let resquery= pool.request().input("fullname",`${fullname}`).input("username",`${username}`).input("email",`${email}`).input("phonenumber",`${parseInt(phonenumber)}`).input("password",`${password}`).execute('spAddUser',(err,result)=>{
                 if (err) return res.status(401).send({
                     message: "An error occured!",
                     error: err.message
