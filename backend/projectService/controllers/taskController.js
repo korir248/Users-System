@@ -222,4 +222,27 @@ const submitTask = async(req,res)=>{
 
 }
 
-module.exports = { getAllTasks,deleteTask,createTask,completeTask, getSingleTask, assignTask, unAssignTask,submitTask}
+const emailTask = async(req,res)=>{
+    try {
+
+        let pool = await mssql.connect(config)
+
+        let tasks = pool.request().execute('spEmailTasks',(err,response)=>{
+            if(err) return res.status(401).send({
+                message: "An error occured!",
+                error: err.message
+            })
+
+            res.status(200).send(response.recordset)
+        })
+        return tasks
+    } catch (error) {
+        return res.status(500).send({
+            message: "An eror occured!",
+            error: error.message
+        })
+        
+    }
+}
+
+module.exports = { getAllTasks,deleteTask,createTask,completeTask, getSingleTask, assignTask, unAssignTask, submitTask, emailTask}

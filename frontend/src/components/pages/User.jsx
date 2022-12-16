@@ -6,7 +6,6 @@ import { useParams } from 'react-router';
 const User = () => {
     const {users} = useSelector(state => state.user)
     const {id}= useParams()
-
     const user = users.find(user=>user.id === parseInt(id))
     console.log(user);
 

@@ -33,6 +33,8 @@ const Signup = ()=>{
                     <input name="username" placeholder="Enter Username" required onChange={handleChange}></input>
                     <label>Email</label>
                     <input name="email" placeholder="Enter Email" required onChange={handleChange}></input>
+                    <label>Phone Number</label>
+                    <input type="number" name="phonenumber" placeholder="Enter Phone Number" required onChange={handleChange}></input>
                     <label>
                         Password
                     </label>
