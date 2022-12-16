@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete'
 // import { Checkbox } from '@mui/material'
 import { deleteProject, getProjects } from '../../redux/actions/projectActions'
-import { Button } from '@mui/material'
+import { Button, Checkbox } from '@mui/material'
 import CreateProject from '../mini components/CreateProject'
 import { red } from '@mui/material/colors'
 

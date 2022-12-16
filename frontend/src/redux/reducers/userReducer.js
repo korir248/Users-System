@@ -58,8 +58,7 @@ const userReducer = (state=initialState,{type,payload,message})=>{
         case LOG_OUT:
             return {
                 ...state,
-                user: {},
-                message: ""
+                user: {}
             }
         case GET_USERS_REQUEST:
             return {
@@ -76,8 +75,7 @@ const userReducer = (state=initialState,{type,payload,message})=>{
             return {
                 ...state,
                 loading: false,
-                error: payload,
-                message: ""
+                error: payload
             }
         default:
             return state;

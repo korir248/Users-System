@@ -47,7 +47,7 @@ const Project = () => {
                     <td>Status</td>
                     <td></td>
                     <td></td>
-                    {/* <td></td> */}
+                    <td></td>
                 </tr>
 
             </thead>
@@ -73,7 +73,7 @@ const Project = () => {
          <tbody>
 
          <Link to={`/admin/projects`}>
-            <Button variant='contained' sx={{backgroundColor: 'green' ,color: 'white'}}>BACK</Button>
+            <Button variant='contained'>BACK</Button>
         </Link>
          </tbody>
         </div>

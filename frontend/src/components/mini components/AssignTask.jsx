@@ -39,7 +39,7 @@ const AssignTask = ({task_id,project_id}) => {
     return (
         <div>
         <div>
-			<Button className="assign-btn" variant='contained' size="small"  sx={{backgroundColor: 'green' ,color: 'white'}} onClick={handleClickOpen}>
+			<Button className="assign-btn" variant='contained' size="small"  onClick={handleClickOpen}>
 				ASSIGN
 			</Button>
 			<Dialog className="dialog" open={open} onClose={handleClose}>

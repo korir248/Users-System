@@ -96,7 +96,6 @@ export const createProject = (project_name,date_created,due_date)=> async(dispat
         const { data} = await axios.post("http://localhost:3002/admin/projects/create",{project_name,date_created,due_date},config)
 
         console.log(data);
-        toast.success("Project cretaed!")
 
         dispatch(getProjects())
         
